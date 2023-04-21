@@ -9,10 +9,10 @@
             "port": 3306,
             "driver": "MySQL",
             "name": "AportConnection",
-            "group": "CS425-",
+            "group": "CS425",
             "database": "AIRLINE_DATABASE",
             "username": "mvildi",
-            "password": "mvildi5210"
+            "password": "First5210"
         }
     ]
 }
