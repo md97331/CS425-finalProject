@@ -3,18 +3,9 @@ package classes_SQL;
 public class User {
     private String username;
     private String password;
-    private Boolean Admin;
+    private int Admin;
 
-
-    public Boolean getAdmin() {
-        return Admin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        Admin = admin;
-    }
-
-    public User(String username, String password, Boolean Admin) {
+    public User(String username, String password, int Admin) {
         this.username = username;
         this.password = password;
         this.Admin = Admin;
@@ -34,5 +25,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getAdmin() {
+        return Admin;
+    }
+
+    public void setAdmin(int admin) {
+        Admin = admin;
     }
 }
