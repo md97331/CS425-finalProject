@@ -1,26 +1,31 @@
 package classes_SQL;
 
 public class User {
-    private String id;
+    private String username;
     private String password;
-    private String admin;
-    private int menuOption;
-    private int subMenuOption;
+    private Boolean Admin;
 
-    public User(String id, String password, String admin, int menuOption, int subMenuOption) {
-        this.id = id;
+
+    public Boolean getAdmin() {
+        return Admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        Admin = admin;
+    }
+
+    public User(String username, String password, Boolean Admin) {
+        this.username = username;
         this.password = password;
-        this.admin = admin;
-        this.menuOption = menuOption;
-        this.subMenuOption = subMenuOption;
+        this.Admin = Admin;
     }
 
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -29,29 +34,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin;
-    }
-
-    public int getMenuOption() {
-        return menuOption;
-    }
-
-    public void setMenuOption(int menuOption) {
-        this.menuOption = menuOption;
-    }
-
-    public int getSubMenuOption() {
-        return subMenuOption;
-    }
-
-    public void setSubMenuOption(int subMenuOption) {
-        this.subMenuOption = subMenuOption;
     }
 }

@@ -119,7 +119,7 @@ public class Menu {
             sc.nextLine();
         }
     }
-    static void displayAdminMenu(User userAccount, Statement stmt) {
+    public static void displayAdminMenu(User userAccount, Statement stmt) {
         Map<Integer, String> AdminMenuTitle = new Menu().initAdminMenu();
         System.out.println("\n--------Admin Menu----------");
         for(int i = 1; i<= AdminMenuTitle.size(); i++)
@@ -147,7 +147,7 @@ public class Menu {
         userAccount.setMenuOption(integerOfMenuOption);
         displayAdminSubMenu(AdminMenuTitle, userAccount, stmt);
     }
-    static void displayUserMenu(User userAccount) {
+    public static void displayUserMenu(User userAccount) {
         Map<Integer, String> UserMenuTitle = new Menu().initUserMenu();
         System.out.println("\n----------- Menu----------");
         for(int i = 1; i<= UserMenuTitle.size(); i++)
@@ -194,7 +194,7 @@ public class Menu {
         exit(0);
         return true;
     }
-    static void login(User userAccount, Statement stmt) {
+    public static void login(User userAccount, Statement stmt) {
         System.out.println("Please sign in!!");
         Scanner sc = new Scanner(System.in);
         while(userAccount.getId() == null || MapUserTable(userAccount, stmt)) {//break after map to user table
@@ -214,32 +214,6 @@ public class Menu {
         }
     }
 
-    public static void main(String[] args) {
-        //connect to database
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","Jerry89232382");
-            Statement stmt=con.createStatement();
-            User userAccount = new User(null, null, null, 0, 0);
-            login(userAccount,stmt);
 
-
-            if (userAccount.getAdmin().contains("A")) {
-                displayAdminMenu(userAccount, stmt);
-            }
-            else if(userAccount.getAdmin().contains("U")) {
-                displayUserMenu(userAccount);
-            }
-            else{
-                System.out.println("Admin error: " + userAccount.getAdmin() + ", please restart the app");
-                exit(0);
-            }
-            //System.out.println(" main:" +userAccount.getMenuOption() + " sub:" + userAccount.getSubMenuOption());
-
-
-        }catch(Exception e){ System.out.println(e);
-        }
-
-
-    }
 }
+
