@@ -21,7 +21,6 @@ public class Flight {
     private int PsgLimitBUSS;
     private int PsgLimitFIRST;
 
-<<<<<<< HEAD
     public Flight(int FlightID, int Distance, String Origin,
                   String Destination, double Hours, boolean Refundable, boolean OneWay, String ArrivalTime,
                   String DepartureTime, boolean FlexibleDate, int MilesDiscount, int PsgLimitECON,
@@ -42,28 +41,6 @@ public class Flight {
         this.PsgLimitPREM = PsgLimitPREM;
         this.PsgLimitBUSS = PsgLimitBUSS;
         this.PsgLimitFIRST = PsgLimitFIRST;
-=======
-    public Flight(int flightID, int distance, String origin,
-                  String destination, double hours, boolean refundable, boolean oneWay, String arrivalTime,
-                  String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
-                  int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) {
-        FlightID = flightID;
-        Distance = distance;
-        Origin = origin;
-        Destination = destination;
-        Hours = hours;
-        Refundable = refundable;
-        OneWay = oneWay;
-        ArrivalTime = arrivalTime;
-        DepartureTime = departureTime;
-        FlexibleDate = flexibleDate;
-        MilesDiscount = milesDiscount;
-        PsgLimitECON = psgLimitECON;
-        PsgLimitCOMF = psgLimitCOMF;
-        PsgLimitPREM = psgLimitPREM;
-        PsgLimitBUSS = psgLimitBUSS;
-        PsgLimitFIRST = psgLimitFIRST;
->>>>>>> d79583b785adcda9c129baba7104980707081610
     }
 
     public Flight() {
