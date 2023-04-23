@@ -7,27 +7,27 @@ public class Connection {
 
     private int connectionID;
     private int flightID;
-    private String arrivalTime;
-    private String departureTime;
-    private String airportConncetion;
+    private String cArrivalTime;
+    private String cDepartureTime;
+    private String airportConnection;
 
-    public Connection(int connectionID, int flightID, String arrivalTime,
-        String departureTime, String airportConncetion) {
+    public Connection(int connectionID, int flightID, String cArrivalTime,
+        String cDepartureTime, String airportConnection) {
             
             this.connectionID = connectionID;
             this.flightID = flightID;
-            this.arrivalTime = arrivalTime;
-            this.departureTime = departureTime;
-            this.airportConncetion = airportConncetion;
+            this.cArrivalTime = cArrivalTime;
+            this.cDepartureTime = cDepartureTime;
+            this.airportConnection = airportConnection;
 
         }
 
     public Connection() {
-        connectionID = 0;
-        flightID = 0;
-        arrivalTime = "";
-        departureTime = "";
-        airportConncetion = "";
+        this.connectionID = 0;
+        this.flightID = 0;
+        this.cArrivalTime = "";
+        this.cDepartureTime = "";
+        this.airportConnection = "";
     }
 
     public void printData() {
@@ -35,9 +35,9 @@ public class Connection {
         System.out.println("==============CONNECTION INFORMATION==============");
         System.out.printf("%26s %s%n", "-Connection ID: ", getConnectionID());
         System.out.printf("%26s %s%n", "-Flight ID: ", getFlightID());
-        System.out.printf("%26s %s%n", "-Arrival Time: ", getArrivalTime());
-        System.out.printf("%26s %s%n", "-Departure Time: ", getDepartureTime());
-        System.out.printf("%26s %s%n", "-Airport Connection: ", getAirportConncetion());
+        System.out.printf("%26s %s%n", "-Arrival Time: ", getcArrivalTime());
+        System.out.printf("%26s %s%n", "-Departure Time: ", getcDepartureTime());
+        System.out.printf("%26s %s%n", "-Airport Connection: ", getAirportConnection());
         System.out.println("======================END=======================");
     }
 
@@ -57,28 +57,28 @@ public class Connection {
         this.flightID = flightID;
     }
 
-    public String getArrivalTime() {
-        return this.arrivalTime;
+    public String getcArrivalTime() {
+        return this.cArrivalTime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setArrivalTime(String cArrivalTime) {
+        this.cArrivalTime = cArrivalTime;
     }
 
-    public String getDepartureTime() {
-        return this.departureTime;
+    public String getcDepartureTime() {
+        return this.cDepartureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
+    public void setcDepartureTime(String cDepartureTime) {
+        this.cDepartureTime = cDepartureTime;
     }
 
-    public String getAirportConncetion() {
-        return this.airportConncetion;
+    public String getAirportConnection() {
+        return this.airportConnection;
     }
 
-    public void setAirportConncetion(String airportConncetion) {
-        this.airportConncetion = airportConncetion;
+    public void setAirportConnection(String airportConnection) {
+        this.airportConnection = airportConnection;
     }
 
 }

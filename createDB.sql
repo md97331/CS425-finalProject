@@ -68,8 +68,8 @@ create table Payment(
 create table Connection (
     ConnectionID INT,
     flightID INT,
-    arrivalTime TIME,
-    departureTime TIME,
+    cArrivalTime TIME,
+    cDepartureTime TIME,
     airportConection varchar (32),
     PRIMARY KEY (ConnectionID), 
     FOREIGN KEY (flightID) REFERENCES Flight(flightID)
