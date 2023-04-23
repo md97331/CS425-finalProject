@@ -1,6 +1,7 @@
 package func_Helpers;
 
 import java.sql.*;
+import java.sql.Connection;
 import java.util.Scanner;
 import classes_SQL.*;
 import java.util.HashMap;
@@ -10,23 +11,23 @@ import static java.lang.System.exit;
 
 public class Menu {
 
-    static User initMenu() {
-        System.out.println("Welcome !! Please sign in your account");
+    public static User initMenu() {
+        System.out.println("================== SKY LINK AIRLINES ==================");
         Scanner sc = new Scanner(System.in);
 
         String username, password;
         do {
-            System.out.println("Type in your username : ");
+            System.out.print("-Username:");
             username = sc.nextLine();
-            System.out.println("Type in your password : ");
+            System.out.print("-Lastname: ");
             password = sc.nextLine();
 
             if (username.contains("\"") || username.contains("\'")) {
-                System.out.println("username contains quotation marks, please try again");
+                System.out.println("Username/Password contains forbidden characters. Please try again!");
                 username = "";
             }
             else if (password.contains("\"") || password.contains("\'")) {
-                System.out.println("password contains quotation marks, please try again");
+                System.out.println("Username/Password contains forbidden characters. Please try again!");
                 password = "";
             }
         } while(username.equals("") || password.equals(""));
@@ -37,14 +38,14 @@ public class Menu {
     static User chkAccount(String username,String password) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","Jerry89232382");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","First5210");
             PreparedStatement pstmt=con.prepareStatement("select * from Admin where userid = ? and password = ?");
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-            ResultSet rs = pstmt.exgitecuteQuery();
+            ResultSet rs = pstmt.executeQuery();
             if(rs.next()) {
                 User returnedUser = new User(username, password, 1);
-                System.out.println("Welcome admin!! ");
+                System.out.println("========== WELCOME " + username + " ===========");
                 rs.close();
                 pstmt.close();
                 con.close();
@@ -59,7 +60,7 @@ public class Menu {
                 rs = pstmt.executeQuery();
                 if(rs.next()) {
                     User returnedUser = new User(username, password, 2);
-                    System.out.println("Welcome user!! ");
+                    System.out.println("========== WELCOME " + rs.getString("firstName") + " " + rs.getString("lastName") + " ===========");
                     rs.close();
                     pstmt.close();
                     con.close();
@@ -67,7 +68,7 @@ public class Menu {
                 }
                 else {
                     User returnedUser = new User(username, password, -1);
-                    System.out.println("Sorry, we cannot find your account. Please try again!! ");
+                    System.out.println("Username/password are incorrect. Please try again!");
                     rs.close();
                     pstmt.close();
                     con.close();
