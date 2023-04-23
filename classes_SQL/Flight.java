@@ -18,7 +18,7 @@ public class Flight {
     private int PsgLimitBUSS;
     private int PsgLimitFIRST;
 
-    public flight(int flightID, int distance, String origin,
+    public Flight(int flightID, int distance, String origin,
                   String destination, double hours, boolean refundable, boolean oneWay, String arrivalTime,
                   String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
                   int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) {
