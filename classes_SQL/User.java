@@ -1,4 +1,4 @@
-package classesSQL;
+package classes_SQL;
 
 public class User {
     private String id;

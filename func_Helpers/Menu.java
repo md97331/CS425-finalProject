@@ -1,9 +1,8 @@
-package funcHelpers;
+package func_Helpers;
 
 import java.sql.*;
 import java.util.*;
-import classesSQL.*;
-
+import classes_SQL.*;
 import static java.lang.System.exit;
 
 public class Menu {

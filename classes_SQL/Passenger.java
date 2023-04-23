@@ -1,4 +1,4 @@
-package classesSQL;
+package classes_SQL;
 
 import java.sql.SQLOutput;
 import java.util.Scanner;
