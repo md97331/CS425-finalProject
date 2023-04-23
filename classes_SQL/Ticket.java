@@ -39,7 +39,7 @@ public class Ticket {
         System.out.printf("%26s %s%n", "-Class Type: ", getClassType());
         System.out.printf("%26s %s%n", "-Passenger ID: ", getPsgID());
         System.out.printf("%26s %s%n", "-Date of Flight: ", getDateOfFlight());
-        System.out.printf("%26s %s%n", "-Standard Price: ", getStandardPrice());
+        System.out.printf("%26s %.2f%n", "-Standard Price: $", getStandardPrice());
         System.out.printf("%26s %s%n", "-Cancelled? ", cancelled?"Yes":"No");
         System.out.println("======================END=======================");
     }

@@ -6,7 +6,7 @@ Use the SQL code created in MySQL to be used with Java to create an application 
 
 ## Application
 Our application will have a menu with prompts, each being a table to work with and query.
-We will have both users and administrators. Users will be able to search and query while administrators will be able to add and book tickets
+We will have both users and administrators. Users will be able to search and query while administrators will be able to modify data. 
 
 ## Menu
 You will be prompted with the following options after logging in
