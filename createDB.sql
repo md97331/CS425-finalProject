@@ -1,4 +1,4 @@
-#create DATABASE AIRLINE_DATABASE;
+create DATABASE AIRLINE_DATABASE;
 use AIRLINE_DATABASE;
 
 create table ClassFlight(
