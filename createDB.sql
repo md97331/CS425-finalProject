@@ -80,3 +80,8 @@ Create Table `Admin`(
     password varchar(45),
     primary key (UserID)
 );
+
+insert into Admin values
+    ("Mvilcapaza", "mvilca5210"),
+    ("Jvelazquez", "abc123"),
+    ("JustJerry", "jerry123");
