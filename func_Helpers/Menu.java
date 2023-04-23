@@ -39,7 +39,7 @@ public class Menu {
             PreparedStatement pstmt=con.prepareStatement("select * from Admin where userid = ? and password = ?");
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-            ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.exgitecuteQuery();
             if(rs.next()) {
                 User returnedUser = new User(username, password, 1);
                 System.out.println("Welcome admin!! ");
@@ -56,7 +56,7 @@ public class Menu {
                 pstmt.setString(2, password);
                 rs = pstmt.executeQuery();
                 if(rs.next()) {
-                    User returnedUser = new User(username, password, 0);
+                    User returnedUser = new User(username, password, 2);
                     System.out.println("Welcome user!! ");
                     rs.close();
                     pstmt.close();
