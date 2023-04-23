@@ -1,13 +1,13 @@
-package cs.mysqlproject.menu;
+package classesSQL;
 
-public class user {
+public class User {
     private String id;
     private String password;
     private String admin;
     private int menuOption;
     private int subMenuOption;
 
-    public user(String id, String password, String admin, int menuOption, int subMenuOption) {
+    public User(String id, String password, String admin, int menuOption, int subMenuOption) {
         this.id = id;
         this.password = password;
         this.admin = admin;
