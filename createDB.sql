@@ -74,3 +74,9 @@ create table Connection (
     PRIMARY KEY (ConnectionID), 
     FOREIGN KEY (flightID) REFERENCES Flight(flightID)
     );
+
+Create Table `Admin`(
+    UserID varchar(45),
+    password varchar(45),
+    primary key (UserID)
+);
