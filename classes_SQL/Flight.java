@@ -1,4 +1,6 @@
-public class flight {
+package classes_SQL;
+
+public class Flight {
     private int FlightID;
     private int Distance;
     private String Origin;
@@ -17,9 +19,9 @@ public class flight {
     private int PsgLimitFIRST;
 
     public flight(int flightID, int distance, String origin,
-     String destination, double hours, boolean refundable, boolean oneWay, String arrivalTime,
-      String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
-      int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) {
+                  String destination, double hours, boolean refundable, boolean oneWay, String arrivalTime,
+                  String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
+                  int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) {
         FlightID = flightID;
         Distance = distance;
         Origin = origin;
@@ -36,10 +38,5 @@ public class flight {
         PsgLimitPREM = psgLimitPREM;
         PsgLimitBUSS = psgLimitBUSS;
         PsgLimitFIRST = psgLimitFIRST;
-}
-
-public void printData() {
-    System.out.print("Passenger " + FirstName +
-     " " + LastName + " was sucessfully created!");
-}
+    }
 }
