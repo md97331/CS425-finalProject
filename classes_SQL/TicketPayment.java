@@ -3,7 +3,7 @@ package classes_SQL;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
-public class Ticket {
+public class TicketPayment {
 
     private int ticketNumber;
     private String classType;
@@ -11,9 +11,14 @@ public class Ticket {
     private String dateOfFlight;
     private double standardPrice;
     private boolean cancelled;
+    private int confirmationID;
+    private String paymentInfo;
+    private int eCredits;
+    private int deltaGIftCard;
 
-    public Ticket(int ticketNumber, String classType, int PsgID,
-        String dateOfFlight, double standardPrice, boolean cancelled) {
+    public TicketPayment(int ticketNumber, String classType, int PsgID,
+        String dateOfFlight, double standardPrice, boolean cancelled, int confirmationID, String paymentInfo,
+        int eCredits, int deltaGIftCard) {
         
             this.ticketNumber = ticketNumber;
             this.classType = classType;
@@ -21,16 +26,24 @@ public class Ticket {
             this.dateOfFlight = dateOfFlight;
             this.standardPrice = standardPrice;
             this.cancelled = cancelled;
+            this.confirmationID = confirmationID;
+            this.paymentInfo = paymentInfo;
+            this.eCredits = eCredits;
+            this.deltaGIftCard = deltaGIftCard;
 
         }
     
-    public Ticket() {
+    public TicketPayment() {
         ticketNumber = 0;
         classType = "";
         PsgID = 0;
         dateOfFlight = "";
         standardPrice = 0;
         cancelled = false;
+        confirmationID = 0;
+        paymentInfo = "";
+        eCredits = 0;
+        deltaGIftCard = 0;
     }
 
     public void printData() {
@@ -41,6 +54,10 @@ public class Ticket {
         System.out.printf("%26s %s%n", "-Date of Flight: ", getDateOfFlight());
         System.out.printf("%26s %.2f%n", "-Standard Price: $", getStandardPrice());
         System.out.printf("%26s %s%n", "-Cancelled? ", cancelled?"Yes":"No");
+        System.out.printf("%26s %s%n", "-Confirmation ID: ", getConfirmationID());
+        System.out.printf("%26s %s%n", "-Payment Information: ", getPaymentInfo());
+        System.out.printf("%26s %s%n", "-eCredits: ", getECredits());
+        System.out.printf("%26s %s%n", "-Delta Gift Card: ", getDeltaGIftCard());
         System.out.println("======================END=======================");
     }
 
@@ -90,6 +107,38 @@ public class Ticket {
 
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    public int getConfirmationID() {
+        return this.confirmationID;
+    }
+
+    public void setConfirmationID(int confirmationID) {
+        this.confirmationID = confirmationID;
+    }
+
+    public String getPaymentInfo() {
+        return this.paymentInfo;
+    }
+
+    public void setPaymentInfo(String paymentInfo) {
+        this.paymentInfo = paymentInfo;
+    }
+
+    public int getECredits() {
+        return this.eCredits;
+    }
+
+    public void setECredits(int eCredits) {
+        this.eCredits = eCredits;
+    }
+
+    public int getDeltaGIftCard() {
+        return this.deltaGIftCard;
+    }
+
+    public void setDeltaGIftCard(int deltaGIftCard) {
+        this.deltaGIftCard = deltaGIftCard;
     }
     
 }
