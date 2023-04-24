@@ -18,6 +18,6 @@ public class Main {
         }else if(currUser.getAdmin() == 2){
             //Menu.displaySubMenu(MenuOption);
         }
-
+        
     }
 }

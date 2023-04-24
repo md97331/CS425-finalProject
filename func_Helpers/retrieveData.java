@@ -151,5 +151,72 @@ public class retrieveData {
         return returnedFlightConnection;
     }
 
+    public static Flight findFlightsfromDestinationAndOrigin(String dest, String ori) throws SQLException {
+        openConnection();
+        String sql = "SELECT * FROM flight WHERE destination = '?' AND origin = '?' ORDER BY distance ASC;";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, dest);
+        stmt.setString(2, ori);
+
+        ResultSet rs = stmt.executeQuery();
+        int flightID = rs.getInt("flightID");
+        int distance = rs.getInt("distance");
+        String origin = rs.getString("origin");
+        String destination = rs.getString("destination");
+        double hours = rs.getDouble("hours");
+        boolean refundable = rs.getBoolean("refundable");
+        boolean oneWay = rs.getBoolean("oneWay");
+        String arrivalTime = rs.getString("arrivalTime");
+        String departureTime = rs.getString("departureTime");
+        boolean flexibleDate = rs.getBoolean("flexibleDate");
+        int milesDiscount = rs.getInt("milesDiscount");
+        int psgLimitECON = rs.getInt("psgLimitECON");
+        int psgLimitCOMF = rs.getInt("psgLimitCOMF");
+        int psgLimitPREM = rs.getInt("psgLimitPREM");
+        int psgLimitBUSS = rs.getInt("psgLimitBUSS");
+        int psgLimitFIRST = rs.getInt("psgLimitFIRST");
+
+        Flight returnedFlight = new Flight(flightID,distance,
+        origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
+        milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
+
+        rs.close();
+        closeConnection();
+        return returnedFlight;
+    }
+
+    public static PassengerTicket searchTicketByName(String first, String last) throws SQLException {
+        openConnection();
+        String sql = "FROM ticket JOIN passenger ON (ticket.PsgId = passenger.PsgID) where firstName = '?' and lastName = '?';";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, first);
+        stmt.setString(2, last);
+
+        ResultSet rs = stmt.executeQuery();
+        int flightID = rs.getInt("flightID");
+        int distance = rs.getInt("distance");
+        String origin = rs.getString("origin");
+        String destination = rs.getString("destination");
+        double hours = rs.getDouble("hours");
+        boolean refundable = rs.getBoolean("refundable");
+        boolean oneWay = rs.getBoolean("oneWay");
+        String arrivalTime = rs.getString("arrivalTime");
+        String departureTime = rs.getString("departureTime");
+        boolean flexibleDate = rs.getBoolean("flexibleDate");
+        int milesDiscount = rs.getInt("milesDiscount");
+        int psgLimitECON = rs.getInt("psgLimitECON");
+        int psgLimitCOMF = rs.getInt("psgLimitCOMF");
+        int psgLimitPREM = rs.getInt("psgLimitPREM");
+        int psgLimitBUSS = rs.getInt("psgLimitBUSS");
+        int psgLimitFIRST = rs.getInt("psgLimitFIRST");
+
+        Flight returnedFlight = new Flight(flightID,distance,
+        origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
+        milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
+
+        rs.close();
+        closeConnection();
+        return returnedFlight;
+    }
 
 }

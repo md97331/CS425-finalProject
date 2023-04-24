@@ -34,16 +34,16 @@ public class TicketPayment {
         }
     
     public TicketPayment() {
-        ticketNumber = 0;
-        classType = "";
-        PsgID = 0;
-        dateOfFlight = "";
-        standardPrice = 0;
-        cancelled = false;
-        confirmationID = 0;
-        paymentInfo = "";
-        eCredits = 0;
-        deltaGIftCard = 0;
+        this.ticketNumber = 0;
+        this.classType = "";
+        this.PsgID = 0;
+        this.dateOfFlight = "";
+        this.standardPrice = 0;
+        this.cancelled = false;
+        this.confirmationID = 0;
+        this.paymentInfo = "";
+        this.eCredits = 0;
+        this.deltaGIftCard = 0;
     }
 
     public void printData() {

@@ -20,7 +20,7 @@ public class Passenger {
     private String cellphone;
 
     public Passenger(int psgID, String firstName, String lastName, String password, String gender, String DOB, String passport, int age, String creditCardInfo, String cellphone) {
-        PsgID = psgID;
+        this.PsgID = psgID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -38,7 +38,7 @@ public class Passenger {
     }
 
     public Passenger() {
-        PsgID = 0;
+        this.PsgID = 0;
         this.firstName = "";
         this.lastName = "";
         this.password = "";
@@ -131,6 +131,7 @@ public class Passenger {
     }
 
     public void printData(){
+        
         System.out.println("==============PASSENGER INFORMATION==============");
         System.out.printf("%26s %s%n", "-Passenger ID: ", getPsgID());
         System.out.printf("%26s %s%n", "-First Name: ", getFirstName());
