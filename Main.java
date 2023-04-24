@@ -6,7 +6,7 @@ import java.sql.*;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         User currUser;
         do {
             currUser = Menu.initMenu();
