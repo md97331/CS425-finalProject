@@ -193,30 +193,47 @@ public class retrieveData {
         stmt.setString(2, last);
 
         ResultSet rs = stmt.executeQuery();
-        int flightID = rs.getInt("flightID");
-        int distance = rs.getInt("distance");
-        String origin = rs.getString("origin");
-        String destination = rs.getString("destination");
-        double hours = rs.getDouble("hours");
-        boolean refundable = rs.getBoolean("refundable");
-        boolean oneWay = rs.getBoolean("oneWay");
-        String arrivalTime = rs.getString("arrivalTime");
-        String departureTime = rs.getString("departureTime");
-        boolean flexibleDate = rs.getBoolean("flexibleDate");
-        int milesDiscount = rs.getInt("milesDiscount");
-        int psgLimitECON = rs.getInt("psgLimitECON");
-        int psgLimitCOMF = rs.getInt("psgLimitCOMF");
-        int psgLimitPREM = rs.getInt("psgLimitPREM");
-        int psgLimitBUSS = rs.getInt("psgLimitBUSS");
-        int psgLimitFIRST = rs.getInt("psgLimitFIRST");
+        int PsgID = rs.getInt("PsgID");
+        String firstName = rs.getString("firstName");
+        String lastName = rs.getString("lastName");
+        String password = rs.getString("pwd");
+        String gender = rs.getString("gender");
+        String DOB = rs.getString("DOB");
+        String passport = rs.getString("passport");
+        int age = rs.getInt("age");
+        String creditCardInfo = rs.getString("creditCardInfo");
+        String cellphone = rs.getString("cellphone");
+        int ticketNumber = rs.getInt("ticketNumber");
+        String classType = rs.getString("classType");
+        String dateOfFlight = rs.getString("dateOfFlight");
+        double standardPrice = rs.getDouble("standardPrice");
+        boolean cancelled = rs.getBoolean("cancelled");
 
-        Flight returnedFlight = new Flight(flightID,distance,
-        origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
-        milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
+        PassengerTicket returnedPassengerTicket = new PassengerTicket(PsgID,firstName,lastName,
+        password,gender,DOB, passport, age, creditCardInfo,cellphone, ticketNumber, classType, dateOfFlight,
+        standardPrice, cancelled);
 
         rs.close();
         closeConnection();
-        return returnedFlight;
+        return returnedPassengerTicket;
     }
+
+    public static void dropTable(String table) throws SQLException {
+        openConnection();
+        String sql = "Drop Table ?;";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, table);
+        ResultSet rs = stmt.executeQuery();
+        closeConnection();
+    }
+
+    public static void dropRowInTicket(String table) throws SQLException {
+        openConnection();
+        String sql = "DELETE FROM Ticket WHERE ticketNumber=;";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, table);
+        ResultSet rs = stmt.executeQuery();
+        closeConnection();
+    }    
 
 }
