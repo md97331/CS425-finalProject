@@ -227,13 +227,40 @@ public class retrieveData {
         closeConnection();
     }
 
-    public static void dropRowInTicket(String table) throws SQLException {
+    public static void dropRowInTicket(int ticketNumber) throws SQLException {
         openConnection();
-        String sql = "DELETE FROM Ticket WHERE ticketNumber=;";
+        String sql = "DELETE FROM Ticket WHERE ticketNumber=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, table);
+        stmt.setInt(1, ticketNumber);
         ResultSet rs = stmt.executeQuery();
         closeConnection();
     }    
+
+    public static void dropRowInPassenger(int PsgID) throws SQLException {
+        openConnection();
+        String sql = "DELETE FROM Passenger WHERE PsgID=?;";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, PsgID);
+        ResultSet rs = stmt.executeQuery();
+        closeConnection();
+    }
+
+    public static void dropRowInFlight(int flightID) throws SQLException {
+        openConnection();
+        String sql = "DELETE FROM Flight WHERE flightID=?;";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, flightID);
+        ResultSet rs = stmt.executeQuery();
+        closeConnection();
+    }
+
+    public static void dropRowInConnection(int ConnectionID) throws SQLException {
+        openConnection();
+        String sql = "DELETE FROM Connection WHERE ConnectionID=?;";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, ConnectionID);
+        ResultSet rs = stmt.executeQuery();
+        closeConnection();
+    }
 
 }
