@@ -113,5 +113,43 @@ public class retrieveData {
         return returnedTicketPayment;
     }
 
+    public static FlightConnection getFlightConnection(int currFlightID) throws SQLException {
+        openConnection();
+        String sql = "select * from connection join flight on (connection.flightID = flight.flightID) where flight.flightID = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, currFlightID);
+
+        ResultSet rs = stmt.executeQuery();
+        int distance = rs.getInt("distance");
+        String origin = rs.getString("origin");
+        String destination = rs.getString("destination");
+        double hours = rs.getDouble("hours");
+        boolean refundable = rs.getBoolean("refundable");
+        boolean oneWay = rs.getBoolean("oneWay");
+        String arrivalTime = rs.getString("arrivalTime");
+        String departureTime = rs.getString("departureTime");
+        boolean flexibleDate = rs.getBoolean("flexibleDate");
+        int milesDiscount = rs.getInt("milesDiscount");
+        int psgLimitECON = rs.getInt("psgLimitECON");
+        int psgLimitCOMF = rs.getInt("psgLimitCOMF");
+        int psgLimitPREM = rs.getInt("psgLimitPREM");
+        int psgLimitBUSS = rs.getInt("psgLimitBUSS");
+        int psgLimitFIRST = rs.getInt("psgLimitFIRST");
+        int connectionID = rs.getInt("ConnectionID");
+        String cArrivalTime = rs.getString("cArrivalTime");
+        String cDepartureTime = rs.getString("cDepartureTime");
+        String airportConnection = rs.getString("airportConnection");
+
+
+        FlightConnection returnedFlightConnection = new FlightConnection(currFlightID,distance,
+        origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
+        milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST,
+        connectionID, cArrivalTime, cDepartureTime, airportConnection);
+
+        rs.close();
+        closeConnection();
+        return returnedFlightConnection;
+    }
+
 
 }

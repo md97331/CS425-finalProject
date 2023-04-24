@@ -77,7 +77,7 @@ public class FlightConnection {
     }
 
     public void printData() {
-        System.out.println("==============FLIGHT INFORMATION==============");
+        System.out.println("==============FLIGHT CONNECTION INFORMATION==============");
         System.out.printf("%26s %s%n", "-Flight ID: ", getFlightID());
         System.out.printf("%26s %s%n", "-Distance (in miles): ", getDistance());
         System.out.printf("%26s %s%n", "-Origin: ", getOrigin());
