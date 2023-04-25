@@ -35,6 +35,27 @@ public class retrieveData {
         }
     }
 
+    public static int verifyInteger() {
+        int pnum = 0; boolean flag = true;
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter an integer: ");
+
+        do {
+            try{
+                pnum = Integer.parseInt(input.nextLine());
+                flag = false;
+            }
+            catch(Exception e ){
+                System.out.print("Invalid Entry, Enter Integer: ");        
+                }
+
+        }
+        while(flag == true); 
+        input.close();
+        return pnum;
+    }
+
+
     public static Passenger getPassengerData(int currPsgID) throws SQLException {
         openConnection();
         String sql = "SELECT * FROM Passenger WHERE PsgID = ?";
@@ -223,7 +244,7 @@ public class retrieveData {
         String sql = "Drop Table ?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, table);
-        ResultSet rs = stmt.executeQuery();
+        stmt.executeQuery();
         closeConnection();
     }
 
@@ -232,7 +253,7 @@ public class retrieveData {
         String sql = "DELETE FROM Ticket WHERE ticketNumber=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, ticketNumber);
-        ResultSet rs = stmt.executeQuery();
+        stmt.executeQuery();
         closeConnection();
     }    
 
@@ -241,7 +262,7 @@ public class retrieveData {
         String sql = "DELETE FROM Passenger WHERE PsgID=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, PsgID);
-        ResultSet rs = stmt.executeQuery();
+        stmt.executeQuery();
         closeConnection();
     }
 
@@ -250,7 +271,7 @@ public class retrieveData {
         String sql = "DELETE FROM Flight WHERE flightID=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, flightID);
-        ResultSet rs = stmt.executeQuery();
+        stmt.executeQuery();
         closeConnection();
     }
 
@@ -259,8 +280,29 @@ public class retrieveData {
         String sql = "DELETE FROM Connection WHERE ConnectionID=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, ConnectionID);
-        ResultSet rs = stmt.executeQuery();
+        stmt.executeQuery();
         closeConnection();
     }
+
+    public static void insertIntoPassengers(int psgID, String firstName, String lastName,
+     String password, String gender, String DOB, String passport,
+      int age, String creditCardInfo, String cellphone) throws SQLException {
+        openConnection();
+        String sql = "insert into Passanger values (?, '?', '?', '?', '?', '?', '?',?,'?','?');";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, psgID);
+        stmt.setString(2, firstName);
+        stmt.setString(3, lastName);
+        stmt.setString(4, password);
+        stmt.setString(5, gender);
+        stmt.setString(6, DOB);
+        stmt.setString(7, passport);
+        stmt.setInt(8, age);
+        stmt.setString(9, creditCardInfo);
+        stmt.setString(10, cellphone);
+        stmt.executeQuery();
+        closeConnection();
+        
+      }
 
 }
