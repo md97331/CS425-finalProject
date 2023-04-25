@@ -44,6 +44,7 @@ public class retrieveData {
             try{
                 pnum = Integer.parseInt(input.nextLine());
                 flag = false;
+                return pnum;
             }
             catch(Exception e ){
                 System.out.print("Invalid Entry, Enter Integer: ");        
