@@ -10,7 +10,7 @@ import java.util.Map;
 import static java.lang.System.exit;
 
 public class Menu {
-
+    public static String SQLPASSWORD = "January201#";
     public static User initMenu() {
         System.out.println("================== SKY LINK AIRLINES ==================");
         Scanner sc = new Scanner(System.in);
@@ -38,7 +38,7 @@ public class Menu {
         static User chkAccount(String username,String password) {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","Jerry89232382");
+                Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
                 PreparedStatement pstmt=con.prepareStatement("select * from Admin where userid = ? and password = ?");
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
@@ -118,7 +118,7 @@ public class Menu {
             Map<String, Object> conditionMapTable;
             Map<String, Object> valueMapTable;
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","Jerry89232382");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
             boolean firstCondition;
             if(selectedOptionFromSubMenu == 1){//insert
                 valueMapTable = updateValueMapTable(tableNameFromFirstMenu);

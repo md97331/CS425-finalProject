@@ -171,7 +171,7 @@ public class retrieveData {
         return returnedFlightConnection;
     }
 
-    public static Flight findFlightsfromDestinationAndOrigin(String dest, String ori) throws SQLException {
+    public static Flight getFlightData(String dest, String ori) throws SQLException {
         openConnection();
         String sql = "SELECT * FROM flight WHERE destination = '?' AND origin = '?' ORDER BY distance ASC;";
         PreparedStatement stmt = connection.prepareStatement(sql);
@@ -301,7 +301,25 @@ public class retrieveData {
         stmt.setString(10, cellphone);
         stmt.executeQuery();
         closeConnection();
-        
-      }
+    }
+
+    public static void insertIntoTicket(int ticketNumber, String classType, int PsgID,
+    String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException {
+        openConnection();
+        String sql = "insert into Ticket values (?, '?', ?, '?', ?, ?);";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, ticketNumber);
+        stmt.setString(2, classType);
+        stmt.setInt(3, PsgID);
+        stmt.setString(4, dateOfFlight);
+        stmt.setDouble(5, standardPrice);
+        stmt.setString(6, DOB);
+        stmt.setString(7, passport);
+        stmt.setInt(8, age);
+        stmt.setString(9, creditCardInfo);
+        stmt.setString(10, cellphone);
+        stmt.executeQuery();
+        closeConnection();
+    }
 
 }

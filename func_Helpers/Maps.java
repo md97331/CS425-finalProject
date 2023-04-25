@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Maps {
-
+    public static String SQLPASSWORD = "January201#";
     public Map<Integer, String> initTablesFromFirstAdminMenu() {
         Map<Integer, String> map = new HashMap<>();
         map.put(1, "Passenger");
@@ -20,7 +20,7 @@ public class Maps {
     public Map<String, Object> initMapTable(String selectedTable) throws ClassNotFoundException, SQLException {
         Map<String, Object> map = new HashMap<>();
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","Jerry89232382");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         Statement stmt=con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from " + selectedTable);
         ResultSetMetaData rsMetaData = rs.getMetaData();
