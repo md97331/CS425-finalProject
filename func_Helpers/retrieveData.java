@@ -313,13 +313,39 @@ public class retrieveData {
         stmt.setInt(3, PsgID);
         stmt.setString(4, dateOfFlight);
         stmt.setDouble(5, standardPrice);
-        stmt.setString(6, DOB);
-        stmt.setString(7, passport);
-        stmt.setInt(8, age);
-        stmt.setString(9, creditCardInfo);
-        stmt.setString(10, cellphone);
+        stmt.setBoolean(6, cancelled);
         stmt.executeQuery();
         closeConnection();
+    }
+
+    public static void insertIntoFlight(int flightID, int distance, String origin,
+    String destination, double hours, boolean refundable, boolean oneWay, String arrivalTime,
+    String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
+    int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) throws SQLException {
+        openConnection();
+        String sql = "insert into Ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, flightID);
+        stmt.setInt(2, distance);
+        stmt.setString(3, origin);
+        stmt.setString(4, destination);
+        stmt.setDouble(5, hours);
+        stmt.setBoolean(6, refundable);
+        stmt.setBoolean(7, oneWay);
+        stmt.setString(8, arrivalTime);
+        stmt.setString(9, departureTime);
+        stmt.setBoolean(8, flexibleDate);
+        stmt.setInt(1, milesDiscount);
+        stmt.setInt(1, psgLimitECON);
+        stmt.setInt(1, psgLimitCOMF);
+        stmt.setInt(1, psgLimitPREM);
+        stmt.setInt(1, psgLimitBUSS);
+        stmt.setInt(1, psgLimitFIRST);
+        stmt.executeQuery();
+        closeConnection();
+
+        // Implement a function that displays all the data PER TABLE
+
     }
 
 }
