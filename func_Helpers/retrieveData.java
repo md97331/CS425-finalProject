@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class retrieveData {
     private static Connection connection;
-    static String url = "jdbc:mysql://localhost:3306/airline";
+    static String url = "jdbc:mysql://localhost:3306/airline_database";
     static String username = "root";
-    static String password = "First5210";
+    static String password = "Jerry89232382";
 
 
     public static void closeConnection() {
@@ -49,12 +49,51 @@ public class retrieveData {
             catch(Exception e ){
                 System.out.print("Invalid Entry, Enter Integer: ");        
                 }
-
         }
         while(flag == true); 
         input.close();
         return pnum;
     }
+
+    public static double verifyDouble() {
+        double pnum = 0; boolean flag = true;
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter a double: ");
+
+        do {
+            try{
+                pnum = Double.parseDouble(input.nextLine());
+                flag = false;
+                return pnum;
+            }
+            catch(Exception e ){
+                System.out.print("Invalid Entry, Enter Integer: ");        
+                }
+        }
+        while(flag == true); 
+        input.close();
+        return pnum;
+    }
+
+    public static boolean verifyBoolean() {
+        boolean value = true; String str = ""; boolean flag = true;
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter 'true' or 'false': ");
+        do {
+            str = input.nextLine();
+            if (str.equalsIgnoreCase("true") || str.equalsIgnoreCase("false")) {
+                    value = Boolean.parseBoolean(str);
+                    flag = false;
+                    return value;
+            } else {
+                    System.out.println("Error: Invalid boolean value");
+            }
+        }
+        while(flag == true); 
+        input.close();
+        return value;
+    }
+
 
     public static Passenger getPassengerData(int currPsgID) throws SQLException {
         openConnection();

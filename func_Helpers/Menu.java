@@ -10,7 +10,7 @@ import java.util.Map;
 import static java.lang.System.exit;
 
 public class Menu {
-    public static String SQLPASSWORD = "January201#";
+    public static String SQLPASSWORD = "Jerry89232382";
     public static User initMenu() {
         System.out.println("================== SKY LINK AIRLINES ==================");
         Scanner sc = new Scanner(System.in);
@@ -111,177 +111,183 @@ public class Menu {
             }
             return conditionMapTable;
         }
+     
     
         public static void runQueryBySelectedOptions(int selectedOptionFromFirstMenu, int selectedOptionFromSubMenu) throws ClassNotFoundException, SQLException {
-            Map<Integer, String> tableNamesFromFirstMenu = new Maps().initTablesFromFirstAdminMenu();
-            String tableNameFromFirstMenu = tableNamesFromFirstMenu.get(selectedOptionFromFirstMenu);
-            Map<String, Object> conditionMapTable;
-            Map<String, Object> valueMapTable;
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-            boolean firstCondition;
-            if(selectedOptionFromSubMenu == 1){//insert
-                valueMapTable = updateValueMapTable(tableNameFromFirstMenu);
-                //String setQuery = "insert into table1 (col1,col2,col3..) values (?,?,...)";
-                StringBuilder sql = new StringBuilder("INSERT INTO  " + tableNameFromFirstMenu + " ( ");
-                firstCondition = true;
-                for (Map.Entry<String, Object> entry : valueMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        if (!firstCondition) {
-                            sql.append(" , ");
-                        } else {
-                            firstCondition = false;
-                        }
-                        sql.append(entry.getKey());
+            Scanner sc = new Scanner(System.in);
+            switch(selectedOptionFromFirstMenu){
+                case 1://passenger    
+                    switch(selectedOptionFromSubMenu){
+                        case 1://insert             
+                            System.out.println("Type in your psgID:");
+                            int psgID = retrieveData.verifyInteger();//not nullable, primary key
+                            System.out.println("Type in your firstName:");
+                            String firstName = sc.nextLine();
+                            System.out.println("Type in your lastName:");
+                            String lastName = sc.nextLine();
+                            System.out.println("Type in your password:");
+                            String password = sc.nextLine();
+                            System.out.println("Type in your gender:");
+                            String gender = sc.nextLine();
+                            System.out.println("Type in your DOB:");
+                            String DOB = sc.nextLine();
+                            System.out.println("Type in your passport:");
+                            String passport = sc.nextLine();
+                            System.out.println("Type in your age:");
+                            int age = retrieveData.verifyInteger();
+                            System.out.println("Type in your creditCardInfo:");
+                            String creditCardInfo = sc.nextLine();
+                            System.out.println("Type in your cellphone:");
+                            String cellphone = sc.nextLine();
+                            retrieveData.insertIntoPassengers(psgID, firstName, lastName, password, gender, DOB, passport, age, creditCardInfo, cellphone);
+                            break;
+                        case 2://update
+                            break;
+                        case 3://delete
+                            System.out.println("Type in your psgID:");
+                            psgID = retrieveData.verifyInteger();
+                            retrieveData.dropRowInPassenger(psgID);
+                            break;
+                        case 4://select
+                            System.out.println("Type in your psgID:");
+                            psgID = retrieveData.verifyInteger();
+                            Passenger uPsge = retrieveData.getPassengerData(psgID);
+                            uPsge.printData();
+                            break;
+                        default://back to main menu
+                            break;
+
                     }
-                }
-                sql.append(" ) VALUES ( ");
-                firstCondition = true;
-                for (Map.Entry<String, Object> entry : valueMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        if (!firstCondition) {
-                            sql.append(" , ");
-                        } else {
-                            firstCondition = false;
-                        }
-                        sql.append("?");
+                    break;
+                case 2: //flight
+                    switch(selectedOptionFromSubMenu){
+                        case 1://insert             
+                            System.out.println("Type in your flightID:");
+                            int flightID = retrieveData.verifyInteger();//not nullable, primary key
+                            System.out.println("Type in your distance:");
+                            int distance = retrieveData.verifyInteger();
+                            System.out.println("Type in your origin:");
+                            String origin = sc.nextLine();
+                            System.out.println("Type in your destination:");
+                            String destination = sc.nextLine();
+                            System.out.println("Type in your hours:");
+                            double hours = retrieveData.verifyDouble();
+                            System.out.println("Type in your refundable:");
+                            boolean refundable = retrieveData.verifyBoolean();
+                            System.out.println("Type in your oneWay:");
+                            boolean oneWay = retrieveData.verifyBoolean();
+                            System.out.println("Type in your arrivalTime:");
+                            String arrivalTime = sc.nextLine();
+                            System.out.println("Type in your departureTime:");
+                            String departureTime = sc.nextLine();
+                            System.out.println("Type in your flexibleDate:");
+                            boolean flexibleDate = retrieveData.verifyBoolean();
+                            System.out.println("Type in your milesDiscount:");
+                            int milesDiscount = retrieveData.verifyInteger();
+                            System.out.println("Type in your psgLimitECON:");
+                            int psgLimitECON = retrieveData.verifyInteger();
+                            System.out.println("Type in your psgLimitCOMF:");
+                            int psgLimitCOMF = retrieveData.verifyInteger();
+                            System.out.println("Type in your psgLimitPREM:");
+                            int psgLimitPREM = retrieveData.verifyInteger();
+                            System.out.println("Type in your psgLimitBUSS:");
+                            int psgLimitBUSS = retrieveData.verifyInteger();
+                            System.out.println("Type in your psgLimitFIRST:");
+                            int psgLimitFIRST = retrieveData.verifyInteger();
+                            retrieveData.insertIntoFlight(flightID, distance, origin, destination, hours, refundable, oneWay, arrivalTime, departureTime, flexibleDate, milesDiscount, psgLimitECON, psgLimitCOMF, psgLimitPREM, psgLimitBUSS, psgLimitFIRST);
+                            break;
+                        case 2://update
+                            break;
+                        case 3://delete
+                            System.out.println("Type in your flightID:");
+                            flightID = retrieveData.verifyInteger();
+                            retrieveData.dropRowInFlight(flightID);
+                            break;
+                        case 4://select
+                            System.out.println("Type in your flightID:");
+                            flightID = retrieveData.verifyInteger();
+                            Flight flght = retrieveData.getFlightData(flightID);
+                            flght.printData();
+                            break;
+                        default://back to main menu
+                            break;
                     }
-                }
-                sql.append(" ) ");
-                //System.out.println("Generated SQL: " + sql.toString());
-                PreparedStatement pstmt = con.prepareStatement(sql.toString());
-                int parameterIndex = 1;
-                for (Map.Entry<String, Object> entry : valueMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        pstmt.setObject(parameterIndex++, entry.getValue());
+                    break;
+                case 3: //connection
+                    switch(selectedOptionFromSubMenu){
+                        case 1://insert             
+                            break;
+                        case 2://update
+                            break;
+                        case 3://delete
+                            System.out.println("Type in your ConnectionID:");
+                            int ConnectionID = retrieveData.verifyInteger();
+                            retrieveData.dropRowInConnection(ConnectionID);
+                            break;
+                        case 4://select
+                            System.out.println("Type in your flightID:");
+                            int flightID = retrieveData.verifyInteger();
+                            FlightConnection flightConn = retrieveData.getFlightConnection(flightID);
+                            flightConn.printData();
+                            break;
+                        default://back to main menu
+                            break;
                     }
-                }
-                int rowsAffected = pstmt.executeUpdate();
-                System.out.println("Rows affected: " + rowsAffected);
-                pstmt.close();
-    
-            }else if(selectedOptionFromSubMenu == 2){//update
-                conditionMapTable = updateConditionMapTable(tableNameFromFirstMenu);
-                valueMapTable = updateValueMapTable(tableNameFromFirstMenu);
-                //String setQuery = "UPDATE table1 SET col1=?,col2=?,col3=? where col1 = ? and col3=? ...";
-                StringBuilder sql = new StringBuilder("UPDATE " + tableNameFromFirstMenu + " SET  ");
-                firstCondition = true;
-                for (Map.Entry<String, Object> entry : valueMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        if (!firstCondition) {
-                            sql.append(" , ");
-                        } else {
-                            firstCondition = false;
-                        }
-                        sql.append(entry.getKey() + " = ? ");
+                    break;
+                case 4: //ticket
+                    switch(selectedOptionFromSubMenu){
+                        case 1://insert             
+                            System.out.println("Type in your ticketNumber:");
+                            int ticketNumber = retrieveData.verifyInteger();//not nullable, primary key
+                            System.out.println("Type in your classType:");
+                            String classType = sc.nextLine();
+                            System.out.println("Type in your PsgID:");
+                            int PsgID = retrieveData.verifyInteger();
+                            System.out.println("Type in your dateOfFlight:");
+                            String dateOfFlight = sc.nextLine();
+                            System.out.println("Type in your standardPrice:");
+                            Double standardPrice = retrieveData.verifyDouble();
+                            System.out.println("Type in your cancelled:");
+                            Boolean cancelled = retrieveData.verifyBoolean();
+                            retrieveData.insertIntoTicket(ticketNumber, classType, PsgID, dateOfFlight, standardPrice, cancelled);
+                            break;
+                        case 2://update
+                            break;
+                        case 3://delete
+                            System.out.println("Type in your ticketNumber:");
+                            ticketNumber = retrieveData.verifyInteger();
+                            retrieveData.dropRowInTicket(ticketNumber);
+                            break;
+                        case 4://select
+                            System.out.println("Type in your ticketNumber:");
+                            ticketNumber = retrieveData.verifyInteger();
+                            TicketPayment ticketPay = retrieveData.getTicketPaymentData(ticketNumber);
+                            ticketPay.printData();
+                            break;
+                        default://back to main menu
+                            break;
                     }
-                }
-                sql.append(" where ");
-                firstCondition = true;
-                for (Map.Entry<String, Object> entry : conditionMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        if (!firstCondition) {
-                            sql.append(" and ");
-                        } else {
-                            firstCondition = false;
-                        }
-                        sql.append(entry.getKey() + " = ? ");
+                    break;
+                case 5: //payment
+                    switch(selectedOptionFromSubMenu){
+                        case 1://insert             
+                            break;
+                        case 2://update
+                            break;
+                        case 3://delete
+                            break;
+                        case 4://select
+                            System.out.println("Type in your ticketNumber:");
+                            int ticketNumber = retrieveData.verifyInteger();
+                            TicketPayment ticketPay = retrieveData.getTicketPaymentData(ticketNumber);
+                            ticketPay.printData();
+                            break;
+                        default://back to main menu
+                            break;
                     }
-                }
-                //System.out.println("Generated SQL: " + sql.toString());
-                PreparedStatement pstmt = con.prepareStatement(sql.toString());
-                int parameterIndex = 1;
-                for (Map.Entry<String, Object> entry : valueMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        pstmt.setObject(parameterIndex++, entry.getValue());
-                    }
-                }
-                for (Map.Entry<String, Object> entry : conditionMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        pstmt.setObject(parameterIndex++, entry.getValue());
-                    }
-                }
-                int rowsAffected = pstmt.executeUpdate();
-                System.out.println("Rows affected: " + rowsAffected);
-                pstmt.close();
-                con.close();
-            }else if(selectedOptionFromSubMenu == 4){//select
-                conditionMapTable = updateConditionMapTable(tableNameFromFirstMenu);
-                //select * from table where col1=? and col2=?
-                StringBuilder sql = new StringBuilder("select * from " + tableNameFromFirstMenu + " where ");
-                firstCondition = true;
-                for (Map.Entry<String, Object> entry : conditionMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        if (!firstCondition) {
-                            sql.append(" and ");
-                        } else {
-                            firstCondition = false;
-                        }
-                        sql.append(entry.getKey() + " = ? ");
-                    }
-                }
-                PreparedStatement pstmt = con.prepareStatement(sql.toString());
-                int parameterIndex = 1;
-                for (Map.Entry<String, Object> entry : conditionMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        pstmt.setObject(parameterIndex++, entry.getValue());
-                    }
-                }
-                ResultSet rs = pstmt.executeQuery();
-                while (rs.next())
-                {
-    //                Blog blog = new Blog();
-    //                blog.setID  ( rs.getInt("id") );
-    //                blog.setText( rs.getString("text") );
-    //                blogs.add(blog);
-                }
-                rs.close();
-                pstmt.close();
-    
-            }else if(selectedOptionFromSubMenu == 3){//delete
-                conditionMapTable = updateConditionMapTable(tableNameFromFirstMenu);
-                StringBuilder sql = new StringBuilder("delete from " + tableNameFromFirstMenu + " where ");
-                firstCondition = true;
-                for (Map.Entry<String, Object> entry : conditionMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        if (!firstCondition) {
-                            sql.append(" and ");
-                        } else {
-                            firstCondition = false;
-                        }
-                        sql.append(entry.getKey() + " = ? ");
-                    }
-                }
-                PreparedStatement pstmt = con.prepareStatement(sql.toString());
-                int parameterIndex = 1;
-                for (Map.Entry<String, Object> entry : conditionMapTable.entrySet()) {
-                    if (entry.getValue() != null) {
-                        pstmt.setObject(parameterIndex++, entry.getValue());
-                    }
-                }
-                int rowsAffected = pstmt.executeUpdate();
-                System.out.println("Rows affected: " + rowsAffected);
-            }else if(selectedOptionFromSubMenu == 5){ //create columns
-                //ALTER TABLE student ADD COLUMN age INT
-                Scanner sc = new Scanner(System.in);
-                System.out.println("please type in column name:");
-                String columnNameForCreateCol = sc.nextLine();
-                System.out.println("please type in column type:");
-                String columnTypeForCreateCol = sc.nextLine();
-                Statement stmt = con.createStatement();
-                String sQuery = "ALTER TABLE " + tableNameFromFirstMenu + " ADD "
-                        + columnNameForCreateCol + " " +columnTypeForCreateCol;
-                int result = stmt.executeUpdate(sQuery);
-                //System.out.println(sQuery);
-    
-                // if result is greater than 0, it means values
-                // has been added
-                if (result >= 0)
-                    System.out.println("new column added.");
-                else
-                    System.out.println("unable to add a column.");
+                    break;
             }
-        con.close();
+            sc.close();
         }
     
         public static int displaySubMenu(int selectedOptionFromFirstMenu) {
@@ -290,23 +296,30 @@ public class Menu {
             int selectedOptionFromSubMenu = 0;
             System.out.println("\n----------- " + tableNameFromFirstMenu + "----------");
             System.out.println("1. Add " + tableNameFromFirstMenu);
-            System.out.println("2. Revise " + tableNameFromFirstMenu + " data");
-            System.out.println("3. Delete " + tableNameFromFirstMenu + " data");
+            System.out.println("2. Update " + tableNameFromFirstMenu);
+            System.out.println("3. Delete " + tableNameFromFirstMenu);
             System.out.println("4. View " + tableNameFromFirstMenu);
             System.out.println("5. Create Columns");
             System.out.println("6. Quit");
-            Scanner sc = new Scanner(System.in);
-            do {
-                try {
-                    System.out.println("Please choose an option : ");
-                    selectedOptionFromSubMenu = Integer.parseInt(sc.nextLine());
-                    if (1 > selectedOptionFromSubMenu || selectedOptionFromSubMenu > 5) {
-                        System.out.println("Please type between number 1-6 .Please try again");
-                    }
-                } catch (Exception e) {
-                    System.out.println("This is not a valid number.Please try again");
-                }
-            } while (1 > selectedOptionFromSubMenu || selectedOptionFromSubMenu > 6);
+            System.out.println("\nPlease choose an option : ");
+            //do{  
+                selectedOptionFromSubMenu = retrieveData.verifyInteger();
+            //}while( selectedOptionFromSubMenu>7 || selectedOptionFromSubMenu<1);
+
+        
+
+            // do {
+            //     try {
+            //         System.out.println("Please choose an option : ");
+            //         selectedOptionFromSubMenu = Integer.parseInt(sc.nextLine());
+            //         if (1 > selectedOptionFromSubMenu || selectedOptionFromSubMenu > 5) {
+            //             System.out.println("Please type between number 1-6 .Please try again");
+            //         }
+            //     } catch (Exception e) {
+            //         System.out.println("This is not a valid number.Please try again");
+            //     }
+            // } while (1 > selectedOptionFromSubMenu || selectedOptionFromSubMenu > 6);
+            //sc.close();
            return selectedOptionFromSubMenu;
         }
     
@@ -317,46 +330,60 @@ public class Menu {
                     System.out.println("1. Edit Passenger");
                     System.out.println("2. Edit Flight");
                     System.out.println("3. Edit Connection");
-                    System.out.println("4. Edit FlightClass");
-                    System.out.println("5. Edit Ticket");
-                    System.out.println("6. Edit Payment");
-                    System.out.println("7. Quit");
-                    Scanner sc = new Scanner(System.in);
-                    do {
-                        try {
-                            System.out.println("Please choose an option : ");
-                            selectedOptionFromFirstMenu = Integer.parseInt(sc.nextLine());
-                            if (1 > selectedOptionFromFirstMenu || selectedOptionFromFirstMenu > 7) {
-                                System.out.println("Please type between number 1-7 .Please try again");
-                            }
-                        } catch (Exception e) {
-                            System.out.println("This is not a valid number.Please try again");
-                        }
-                    } while (1 > selectedOptionFromFirstMenu || selectedOptionFromFirstMenu > 7);
+                    System.out.println("4. Edit Ticket");
+                    System.out.println("5. Edit Payment");
+                    System.out.println("6. Quit");
+                    System.out.println("\nPlease choose an option : ");
+                    //do{
+                        
+                    selectedOptionFromFirstMenu = retrieveData.verifyInteger();
+                    //}while( selectedOptionFromFirstMenu>7 || selectedOptionFromFirstMenu<1);
+
+                    // Scanner sc = new Scanner(System.in);
+                    // do {
+                    //     try {
+                    //         System.out.println("Please choose an option : ");
+                    //         selectedOptionFromFirstMenu = Integer.parseInt(sc.nextLine());
+                    //         if (1 > selectedOptionFromFirstMenu || selectedOptionFromFirstMenu > 7) {
+                    //             System.out.println("Please type between number 1-7 .Please try again");
+                    //         }
+                    //     } catch (Exception e) {
+                    //         System.out.println("This is not a valid number.Please try again");
+                    //     }
+                    // } while (1 > selectedOptionFromFirstMenu || selectedOptionFromFirstMenu > 7);
                     if (selectedOptionFromFirstMenu == 7) exit(0);
+                 
             }else if (userAccount.getAdmin() == 2) { //user
                 System.out.println("\n----------- Menu----------");
                 System.out.println("1. Search Flight");
                 System.out.println("2. Book Ticket");
                 System.out.println("3. Search User Info");
                 System.out.println("4. Quit");
-                Scanner sc = new Scanner(System.in);
-                do
-                {
-                    try
-                    {
-                        System.out.println("Please choose an option : ");
-                        selectedOptionFromFirstMenu = Integer.parseInt(sc.nextLine());
-                        if(1> selectedOptionFromFirstMenu || selectedOptionFromFirstMenu> 3){
-                            System.out.println("Please type between 1-3 .Please try again");
-                        }
-                    }
-                    catch(Exception e)
-                    {
-                        System.out.println("This is not a valid number.Please try again");
-                    }
-                }while(1> selectedOptionFromFirstMenu || selectedOptionFromFirstMenu> 3);
-                if (selectedOptionFromFirstMenu == 7) exit(0);
+                System.out.println("\nPlease choose an option : ");
+                //do{
+                    
+                    selectedOptionFromFirstMenu = retrieveData.verifyInteger();
+                //}while( selectedOptionFromFirstMenu>4 || selectedOptionFromFirstMenu<1);
+
+
+                // Scanner sc = new Scanner(System.in);
+                // do
+                // {
+                //     try
+                //     {
+                //         System.out.println("Please choose an option : ");
+                //         selectedOptionFromFirstMenu = Integer.parseInt(sc.nextLine());
+                //         if(1> selectedOptionFromFirstMenu || selectedOptionFromFirstMenu> 3){
+                //             System.out.println("Please type between 1-3 .Please try again");
+                //         }
+                //     }
+                //     catch(Exception e)
+                //     {
+                //         System.out.println("This is not a valid number.Please try again");
+                //     }
+                // }while(1> selectedOptionFromFirstMenu || selectedOptionFromFirstMenu> 3);
+                // sc.close();
+                if (selectedOptionFromFirstMenu == 4) exit(0);
             }else{
                 System.out.println("illegal status");
                 exit(0);
