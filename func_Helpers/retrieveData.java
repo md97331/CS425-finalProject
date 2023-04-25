@@ -55,7 +55,6 @@ public class retrieveData {
         return pnum;
     }
 
-
     public static Passenger getPassengerData(int currPsgID) throws SQLException {
         openConnection();
         String sql = "SELECT * FROM Passenger WHERE PsgID = ?";
