@@ -26,7 +26,7 @@ public class retrieveData {
 
     public static void openConnection() {
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+            connection = DriverManager.getConnection(url, username, password);
             System.out.println("Database connection established.");
         } catch (SQLException e) {
             System.err.println("Error connecting to database: " + e.getMessage());
