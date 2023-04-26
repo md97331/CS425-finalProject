@@ -56,6 +56,7 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("SELECT * FROM passenger WHERE PsgID = ?");
         pstmt.setInt(1, currPsgID);
         ResultSet rs = pstmt.executeQuery();
+        rs.next();
 
         String firstName = rs.getString("firstName");
         String lastName = rs.getString("lastName");
@@ -81,8 +82,9 @@ public class retrieveData {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         PreparedStatement pstmt=con.prepareStatement("SELECT * FROM Passenger WHERE passport = ?");
         pstmt.setInt(1, passportNum);
-
         ResultSet rs = pstmt.executeQuery();
+        rs.next();
+
         String firstName = rs.getString("firstName");
         String lastName = rs.getString("lastName");
         String password = rs.getString("pwd");
@@ -105,9 +107,9 @@ public class retrieveData {
         Connection Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/AIRLINE_DATABASE?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","First5210");
         PreparedStatement Get = Con.prepareStatement("select * from flight where flightID = ?");
         Get.setInt(1, currFlightID);
-
         ResultSet rs = Get.executeQuery();
         rs.next();
+
         int distance = rs.getInt("distance");
         String origin = rs.getString("origin");
         String destination = rs.getString("destination");
@@ -137,8 +139,9 @@ public class retrieveData {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         PreparedStatement pstmt=con.prepareStatement("select * from payment natural join ticket where ticketNumber = ?");
         pstmt.setInt(1, currTicketNum);
-
         ResultSet rs = pstmt.executeQuery();
+        rs.next();
+
         String classType = rs.getString("classType");
         int PsgID = rs.getInt("PsgID");
         String dateOfFlight = rs.getString("dateOfFlight");
@@ -162,8 +165,9 @@ public class retrieveData {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         PreparedStatement pstmt=con.prepareStatement("select * from connection join flight on (connection.flightID = flight.flightID) where flight.flightID = ?");
         pstmt.setInt(1, currFlightID);
-
         ResultSet rs = pstmt.executeQuery();
+        rs.next();
+
         int distance = rs.getInt("distance");
         String origin = rs.getString("origin");
         String destination = rs.getString("destination");
@@ -202,8 +206,9 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("SELECT * FROM flight WHERE destination = ? AND origin = ? ORDER BY distance ASC");
         pstmt.setString(1, dest);
         pstmt.setString(2, ori);
-
         ResultSet rs = pstmt.executeQuery();
+        rs.next();
+
         int flightID = rs.getInt("flightID");
         int distance = rs.getInt("distance");
         String origin = rs.getString("origin");
@@ -237,8 +242,9 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("SELECT * FROM ticket JOIN passenger ON (ticket.PsgId = passenger.PsgID) where firstName = ? and lastName = ?");
         pstmt.setString(1, first);
         pstmt.setString(2, last);
-
         ResultSet rs = pstmt.executeQuery();
+        rs.next();
+
         int PsgID = rs.getInt("PsgID");
         String firstName = rs.getString("firstName");
         String lastName = rs.getString("lastName");
