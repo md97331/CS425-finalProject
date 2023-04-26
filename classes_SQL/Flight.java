@@ -42,6 +42,9 @@ public class Flight {
         this.PsgLimitBUSS = PsgLimitBUSS;
         this.PsgLimitFIRST = PsgLimitFIRST;
     }
+    public Flight(int flightID){
+        this.FlightID = flightID;
+    }
 
     public Flight() {
         this.FlightID = 0;
@@ -63,6 +66,10 @@ public class Flight {
     }
 
     public void printData() {
+        if (FlightID==-1){
+            System.out.println("Flight not found!\n");
+            return;
+        }
         System.out.println("==============FLIGHT INFORMATION==============");
         System.out.printf("%26s %s%n", "-Flight ID: ", getFlightID());
         System.out.printf("%26s %s%n", "-Distance (in miles): ", getDistance());

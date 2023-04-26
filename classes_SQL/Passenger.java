@@ -131,8 +131,8 @@ public class Passenger {
     }
 
     public void printData(){
-        if (PsgID == -1) {
-            System.out.println("Passenger not found!");
+        if (PsgID == -1 || passport.equals("error")) {
+            System.out.println("Passenger not found!\n");
             return;
         }
         System.out.println("==============PASSENGER INFORMATION==============");

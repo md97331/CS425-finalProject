@@ -47,6 +47,10 @@ public class TicketPayment {
     }
 
     public void printData() {
+        if (ticketNumber==-1){
+            System.out.println("Ticket not found!\n");
+            return;
+        }
         System.out.println("==============TICKET INFORMATION==============");
         System.out.printf("%26s %s%n", "-Ticket Number: ", getTicketNumber());
         System.out.printf("%26s %s%n", "-Class Type: ", getClassType());
