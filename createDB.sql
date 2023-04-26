@@ -1,13 +1,13 @@
 create DATABASE AIRLINE_DATABASE;
 use AIRLINE_DATABASE;
 
-create table ClassFlight(
+create table classFlight(
     classType VARCHAR(20), 
     upgradeCost INT,
     PRIMARY KEY (classType)
     );
 
-create table Flight (
+create table flight (
     flightID INT, 
     distance INT,
     origin VARCHAR(32),
@@ -27,7 +27,7 @@ create table Flight (
     PRIMARY KEY (flightID)
     );
 
-create table Passenger (
+create table passenger (
     PsgID INT, 
     flightID INT , 
     firstName VARCHAR(25) NOT NULL, 
@@ -43,7 +43,7 @@ create table Passenger (
     FOREIGN KEY (flightID) REFERENCES Flight(flightID)
     );
 
-create table Ticket (
+create table ticket (
     ticketNumber INT,
     classType VARCHAR(20),
     PsgID INT,
@@ -55,7 +55,7 @@ create table Ticket (
     FOREIGN KEY (classType) REFERENCES ClassFlight(classType)
     );
 
-create table Payment(
+create table payment(
     ticketNumber INT, 
     confirmationID INT,
     paymentInfo VARCHAR(20) NOT NULL, 
@@ -65,7 +65,7 @@ create table Payment(
     FOREIGN KEY (ticketNumber) REFERENCES Ticket(ticketNumber)
 );
 
-create table Connection (
+create table connection (
     ConnectionID INT,
     flightID INT,
     cArrivalTime TIME,
