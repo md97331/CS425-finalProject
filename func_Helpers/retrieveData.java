@@ -7,34 +7,7 @@ import java.util.Scanner;
 
 
 public class retrieveData {
-    private static Connection connection;
-    static String url = "jdbc:mysql://localhost:3306/airline_database";
-    static String username = "root";
-    static String password = "First5210";
-
-
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-                System.out.println("Database connection closed.");
-            } catch (SQLException e) {
-                System.err.println("Error closing database connection: " + e.getMessage());
-            }
-        }
-    }
-
-    public static void openConnection() {
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Database connection established.");
-        } catch (SQLException e) {
-            System.err.println("Error connecting to database: " + e.getMessage());
-        } finally {
-            closeConnection();
-        }
-    }
-
+    public static String SQLPASSWORD = "First5210";
     public static int verifyInteger() {
         int pnum = 0; boolean flag = true;
         Scanner input = new Scanner(System.in);
@@ -69,19 +42,19 @@ public class retrieveData {
                     System.out.println("Error: Invalid boolean value");
             }
         }
-        while(flag == true); 
+        while(flag);
         input.close();
         return value;
     }
 
 
-    public static Passenger getPassengerData(int currPsgID) throws SQLException {
-        openConnection();
-        String sql = "SELECT * FROM Passenger WHERE PsgID = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, currPsgID);
+    public static Passenger getPassengerData(int currPsgID) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("SELECT * FROM passenger WHERE PsgID = ?");
+        pstmt.setInt(1, currPsgID);
+        ResultSet rs = pstmt.executeQuery();
 
-        ResultSet rs = stmt.executeQuery();
         String firstName = rs.getString("firstName");
         String lastName = rs.getString("lastName");
         String password = rs.getString("pwd");
@@ -95,7 +68,8 @@ public class retrieveData {
         Passenger returnedPassenger = new Passenger(currPsgID,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
 
         rs.close();
-        closeConnection();
+        pstmt.close();
+        con.close();
         return returnedPassenger;
     }
 
@@ -125,7 +99,7 @@ public class retrieveData {
 
     public static Flight getFlightData(int currFlightID) throws SQLException {
         openConnection();
-        String sql = "SELECT * FROM Flight WHERE flightID = ?";
+        String sql = "SELECT * FROM flight WHERE flightID = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, currFlightID);
 
@@ -149,6 +123,7 @@ public class retrieveData {
         Flight returnedFlight = new Flight(currFlightID,distance,origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
 
         rs.close();
+        stmt.close();
         closeConnection();
         return returnedFlight;
     }
@@ -217,7 +192,7 @@ public class retrieveData {
 
     public static Flight getFlightData(String dest, String ori) throws SQLException {
         openConnection();
-        String sql = "SELECT * FROM flight WHERE destination = '?' AND origin = '?' ORDER BY distance ASC;";
+        String sql = "SELECT * FROM flight WHERE destination = ? AND origin = ? ORDER BY distance ASC";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, dest);
         stmt.setString(2, ori);
@@ -251,7 +226,7 @@ public class retrieveData {
 
     public static PassengerTicket searchTicketByName(String first, String last) throws SQLException {
         openConnection();
-        String sql = "FROM ticket JOIN passenger ON (ticket.PsgId = passenger.PsgID) where firstName = '?' and lastName = '?';";
+        String sql = "SELECT * FROM ticket JOIN passenger ON (ticket.PsgId = passenger.PsgID) where firstName = ? and lastName = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, first);
         stmt.setString(2, last);
@@ -293,7 +268,7 @@ public class retrieveData {
 
     public static void dropRowInTicket(int ticketNumber) throws SQLException {
         openConnection();
-        String sql = "DELETE FROM Ticket WHERE ticketNumber=?;";
+        String sql = "DELETE FROM ticket WHERE ticketNumber=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, ticketNumber);
         stmt.executeQuery();
@@ -302,7 +277,7 @@ public class retrieveData {
 
     public static void dropRowInPassenger(int PsgID) throws SQLException {
         openConnection();
-        String sql = "DELETE FROM Passenger WHERE PsgID=?;";
+        String sql = "DELETE FROM passenger WHERE PsgID=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, PsgID);
         stmt.executeQuery();
@@ -311,7 +286,7 @@ public class retrieveData {
 
     public static void dropRowInFlight(int flightID) throws SQLException {
         openConnection();
-        String sql = "DELETE FROM Flight WHERE flightID=?;";
+        String sql = "DELETE FROM flight WHERE flightID=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, flightID);
         stmt.executeQuery();
@@ -320,7 +295,7 @@ public class retrieveData {
 
     public static void dropRowInConnection(int ConnectionID) throws SQLException {
         openConnection();
-        String sql = "DELETE FROM Connection WHERE ConnectionID=?;";
+        String sql = "DELETE FROM connection WHERE ConnectionID=?;";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, ConnectionID);
         stmt.executeQuery();
@@ -331,7 +306,7 @@ public class retrieveData {
      String password, String gender, String DOB, String passport,
       int age, String creditCardInfo, String cellphone) throws SQLException {
         openConnection();
-        String sql = "insert into Passanger values (?, '?', '?', '?', '?', '?', '?',?,'?','?');";
+        String sql = "insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, psgID);
         stmt.setString(2, firstName);
@@ -350,7 +325,7 @@ public class retrieveData {
     public static void insertIntoTicket(int ticketNumber, String classType, int PsgID,
     String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException {
         openConnection();
-        String sql = "insert into Ticket values (?, '?', ?, '?', ?, ?);";
+        String sql = "insert into ticket values (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, ticketNumber);
         stmt.setString(2, classType);
@@ -367,7 +342,7 @@ public class retrieveData {
     String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
     int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) throws SQLException {
         openConnection();
-        String sql = "insert into Ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setInt(1, flightID);
         stmt.setInt(2, distance);
