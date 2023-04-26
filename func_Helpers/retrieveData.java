@@ -341,7 +341,7 @@ public class retrieveData {
         stmt.setString(10, cellphone);
         stmt.executeQuery();
         closeConnection();
-    }
+        }
 
     public static void insertIntoTicket(int ticketNumber, String classType, int PsgID,
     String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException {
