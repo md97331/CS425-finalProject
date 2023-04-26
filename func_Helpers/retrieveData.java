@@ -370,7 +370,7 @@ public class retrieveData {
         stmt.setInt(8, age);
         stmt.setString(9, creditCardInfo);
         stmt.setString(10, cellphone);
-        stmt.executeQuery();
+        stmt.executeUpdate();
         
         stmt.close();
         con.close();
@@ -430,6 +430,7 @@ public class retrieveData {
         System.out.println("========= UPDATING PASSENGER ===========");
         System.out.print("PsgID: "); int PsgID = sc.nextInt();
         System.out.print("flightID: "); int flightID = sc.nextInt();
+        sc.nextLine();
         System.out.print("firstName: "); String firstName = sc.nextLine();
         System.out.print("lastName: "); String lastName = sc.nextLine();
         System.out.print("pwd: "); String pwd = sc.nextLine();
@@ -437,21 +438,29 @@ public class retrieveData {
         System.out.print("DOB: "); String DOB = sc.nextLine();
         System.out.print("passport: "); String passport = sc.nextLine();
         System.out.print("age: "); int age = sc.nextInt();
+        sc.nextLine();
         System.out.print("creditCardInfo: "); String creditCardInfo = sc.nextLine();
         System.out.print("cellPhone: "); String cellPhone = sc.nextLine();
 
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET PsgID = ?, flightID = ?, firstName = ?, lastName = ?, pwd = ?, gender = ?, DOB = ?, passport = ?, age = ?, creditCardInfo = ?, cellPhone = ? where ");
-        pstmt.setInt(1, currPsgID);
-        pstmt.executeUpdate(pstmt);
+        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET PsgID = ?, flightID = ?, firstName = ?, lastName = ?, pwd = ?, gender = ?, DOB = ?, passport = ?, age = ?, creditCardInfo = ?, cellPhone = ? WHERE PsgID = ? ");
 
- 
-
-
-//        rs.close();
-//        pstmt.close();
-//        con.close();
+        pstmt.setInt(1, PsgID);
+        pstmt.setInt(2, flightID);
+        pstmt.setString(3, firstName);
+        pstmt.setString(4, lastName);
+        pstmt.setString(5, pwd);
+        pstmt.setString(6, gender);
+        pstmt.setString(7, DOB);
+        pstmt.setString(8, passport);
+        pstmt.setInt(9, age);
+        pstmt.setString(10, creditCardInfo);
+        pstmt.setString(11, cellPhone);
+        pstmt.setInt(12, currPsgID);
+        pstmt.executeUpdate();
+        pstmt.close();
+        con.close();
     }
 }

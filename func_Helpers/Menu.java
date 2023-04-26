@@ -92,7 +92,7 @@ public class Menu {
             int psgLimitPREM; int psgLimitBUSS; int psgLimitFIRST; int ConnectionID;
             int ticketNumber; int PsgID; String classType; String dateOfFlight;
             Double standardPrice; Boolean cancelled; TicketPayment ticketPay;
-            Passenger uPsge; Flight flght; FlightConnection flightConn;
+            Passenger uPsge; Flight flght; FlightConnection flightConn; int currPsgID;
             
 
             if(admin == 1){//admin
@@ -123,6 +123,9 @@ public class Menu {
                                 retrieveData.insertIntoPassengers(psgID, firstName, lastName, password, gender, DOB, passport, age, creditCardInfo, cellphone);
                                 break;
                             case 2://update
+                                System.out.print("Type in your passengerID: ");
+                                currPsgID = sc.nextInt();
+                                retrieveData.passengerUpdate(currPsgID);
                                 break;
                             case 3://delete
                                 System.out.print("Type in your psgID: ");
@@ -134,6 +137,35 @@ public class Menu {
                                 psgID = retrieveData.verifyInteger(9999);
                                 uPsge = retrieveData.getPassengerData(psgID);
                                 uPsge.printData();
+                                break;
+                            case 5:
+                                System.out.print("============== INFO OF CONNECTION ===============\n");
+                                Class.forName("com.mysql.cj.jdbc.Driver");
+                                Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+                                PreparedStatement pstmt=con.prepareStatement("SELECT * FROM flight WHERE destination = ? AND origin = ? ORDER BY distance ASC");
+                                Scanner Sc = new Scanner(System.in);
+                                System.out.print("Insert your origin: ");
+                                String og = Sc.nextLine();
+                                System.out.print("Insert your destination: ");
+                                String dt = Sc.nextLine();
+                                pstmt.setString(2, og);
+                                pstmt.setString(1, dt);
+                                ResultSet rs = pstmt.executeQuery();
+
+                                ResultSetMetaData rsmd = rs.getMetaData();
+                                int columnsNumber = rsmd.getColumnCount();
+                                while (rs.next()) {
+                                    for (int i = 1; i <= columnsNumber; i++) {
+                                        String columnValue = rs.getString(i);
+                                        System.out.println(" " + i + ". " + rsmd.getColumnName(i) + " : " +  columnValue);
+                                    }
+                                    System.out.println("");
+                                }
+
+                                rs.close();
+                                pstmt.close();
+                                con.close();
+
                                 break;
                             default://back to main menu
                                 break;
@@ -267,6 +299,7 @@ public class Menu {
                                 break;
                         }
                         break;
+
                     default:
                            
                 }
@@ -319,6 +352,8 @@ public class Menu {
                         uPsge = retrieveData.getPassengerData(psgID);
                         uPsge.printData();
                         break;
+
+
                     default:
                     
                 }
@@ -335,7 +370,7 @@ public class Menu {
             System.out.println("2. Update " + tableNameFromFirstMenu);
             System.out.println("3. Delete " + tableNameFromFirstMenu);
             System.out.println("4. View " + tableNameFromFirstMenu);
-            System.out.println("5. Create Columns");
+            System.out.println("5. Requests");
             System.out.println("6. Quit");
             System.out.print("\nPlease choose an option: ");
             
