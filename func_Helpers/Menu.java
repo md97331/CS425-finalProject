@@ -152,7 +152,7 @@ public class Menu {
                                 System.out.println("Type in your destination:");
                                 destination = sc.nextLine();
                                 System.out.println("Type in your hours:");
-                                hours = retrieveData.verifyDouble();
+                                hours = sc.nextDouble();
                                 System.out.println("Type in your refundable:");
                                 refundable = retrieveData.verifyBoolean();
                                 System.out.println("Type in your oneWay:");
@@ -227,7 +227,7 @@ public class Menu {
                                 System.out.println("Type in your dateOfFlight:");
                                 dateOfFlight = sc.nextLine();
                                 System.out.println("Type in your standardPrice:");
-                                standardPrice = retrieveData.verifyDouble();
+                                standardPrice = sc.nextDouble();
                                 System.out.println("Type in your cancelled:");
                                 cancelled = retrieveData.verifyBoolean();
                                 retrieveData.insertIntoTicket(ticketNumber, classType, PsgID, dateOfFlight, standardPrice, cancelled);
@@ -307,7 +307,7 @@ public class Menu {
                         System.out.println("Type in your dateOfFlight:");
                         dateOfFlight = sc.nextLine();
                         System.out.println("Type in your standardPrice:");
-                        standardPrice = retrieveData.verifyDouble();
+                        standardPrice = sc.nextDouble();
                         System.out.println("Type in your cancelled:");
                         cancelled = retrieveData.verifyBoolean();
                         retrieveData.insertIntoTicket(ticketNumber, classType, PsgID, dateOfFlight, standardPrice, cancelled);

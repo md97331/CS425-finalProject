@@ -48,6 +48,8 @@ public class retrieveData {
     }
 
 
+
+
     public static Passenger getPassengerData(int currPsgID) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
@@ -100,12 +102,12 @@ public class retrieveData {
     }
 
     public static Flight getFlightData(int currFlightID) throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("SELECT * FROM flight WHERE flightID = ?");
-        pstmt.setInt(1, currFlightID);
+        Connection Con = DriverManager.getConnection("jdbc:mysql://localhost:3306/AIRLINE_DATABASE?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root","First5210");
+        PreparedStatement Get = Con.prepareStatement("select * from flight where flightID = ?");
+        Get.setInt(1, currFlightID);
 
-        ResultSet rs = pstmt.executeQuery();
+        ResultSet rs = Get.executeQuery();
+        rs.next();
         int distance = rs.getInt("distance");
         String origin = rs.getString("origin");
         String destination = rs.getString("destination");
@@ -125,8 +127,8 @@ public class retrieveData {
         Flight returnedFlight = new Flight(currFlightID,distance,origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
 
         rs.close();
-        pstmt.close();
-        con.close();
+        Get.close();
+        Con.close();
         return returnedFlight;
     }
 
@@ -338,25 +340,8 @@ public class retrieveData {
         
         stmt.close();
         con.close();
-      int age, String creditCardInfo, String cellphone) throws SQLException, ClassNotFoundException {
+    }
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)");
-        pstmt.setInt(1, psgID);
-        pstmt.setString(2, firstName);
-        pstmt.setString(3, lastName);
-        pstmt.setString(4, password);
-        pstmt.setString(5, gender);
-        pstmt.setString(6, DOB);
-        pstmt.setString(7, passport);
-        pstmt.setInt(8, age);
-        pstmt.setString(9, creditCardInfo);
-        pstmt.setString(10, cellphone);
-        pstmt.executeQuery();
-        pstmt.close();
-        con.close();
-        }
 
     public static void insertIntoTicket(int ticketNumber, String classType, int PsgID,
     String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException, ClassNotFoundException {
@@ -406,5 +391,36 @@ public class retrieveData {
         // Implement a function that displays all the data PER TABLE
 
     }
+    public static void passengerUpdate(int currPsgID) throws SQLException, ClassNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("========= UPDATING PASSENGER ===========");
+        System.out.print("PsgID: "); int PsgID = sc.nextInt();
+        System.out.print("flightID: "); int flightID = sc.nextInt();
+        System.out.print("firstName: "); String firstName = sc.nextLine();
+        System.out.print("lastName: "); String lastName = sc.nextLine();
+        System.out.print("pwd: "); String pwd = sc.nextLine();
+        System.out.print("gender: "); String gender = sc.nextLine();
+        System.out.print("DOB: "); sc.nextLine();
+        System.out.print("passport: "); sc.nextLine();
+        System.out.print("age: "); sc.nextLine();
+        System.out.print("creditCardInfo: "); sc.nextLine();
+        System.out.print("cellPhone: "); sc.nextLine();
 
+
+
+
+
+//        Class.forName("com.mysql.cj.jdbc.Driver");
+//        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+//        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET ");
+//        pstmt.setInt(1, currPsgID);
+//        ResultSet rs = pstmt.executeQuery();
+
+
+
+
+//        rs.close();
+//        pstmt.close();
+//        con.close();
+    }
 }
