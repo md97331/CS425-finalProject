@@ -30,6 +30,7 @@ public class Maps {
             map.put(rsMetaData.getColumnName(i), null);
         }
         rs.close();
+        stmt.close();
         con.close();
         return map;
     }

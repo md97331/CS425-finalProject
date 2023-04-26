@@ -19,7 +19,7 @@ public class Menu {
         do {
             System.out.print("-Username:");
             username = sc.nextLine();
-            System.out.print("-Lastname: ");
+            System.out.print("-Password: ");
             password = sc.nextLine();
     
             if (username.contains("\"") || username.contains("\'")) {
@@ -31,7 +31,7 @@ public class Menu {
                 password = "";
             }
         } while(username.equals("") || password.equals(""));
-        //sc.close();
+
         return chkAccount(username, password);
     }
     
@@ -322,10 +322,10 @@ public class Menu {
                     
                 }
             }
-            sc.close();
         }
     
         public static int displaySubMenu(int selectedOptionFromFirstMenu) {
+            Scanner sc = new Scanner(System.in);
             Map<Integer, String> tableNamesFromFirstMenu = new Maps().initTablesFromFirstAdminMenu();
             String tableNameFromFirstMenu = tableNamesFromFirstMenu.get(selectedOptionFromFirstMenu);
             int selectedOptionFromSubMenu = 0;
@@ -340,7 +340,7 @@ public class Menu {
             
             
             do{  
-                selectedOptionFromSubMenu = retrieveData.verifyInteger();
+                selectedOptionFromSubMenu = Integer.parseInt(sc.nextLine());
                 if(selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1) 
                         System.out.println("Please type number between 1-6");  
             }while( selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1); 
@@ -349,6 +349,7 @@ public class Menu {
     
         public static int displayMenu(User userAccount) {
             int selectedOptionFromFirstMenu= 0;
+            Scanner sc = new Scanner(System.in); 
             if(userAccount.getAdmin() == 1){// admin
                     System.out.println("\n================== Menu ==================");
                     System.out.println("1. Edit Passenger");
@@ -359,7 +360,7 @@ public class Menu {
                     System.out.println("6. Quit");
                     System.out.println("\nPlease choose an option : ");
                     do{
-                    selectedOptionFromFirstMenu = retrieveData.verifyInteger();
+                    selectedOptionFromFirstMenu = Integer.parseInt(sc.nextLine());
                     if(selectedOptionFromFirstMenu>6 || selectedOptionFromFirstMenu<1) 
                         System.out.println("Please type number between 1-6");    
                     }while( selectedOptionFromFirstMenu>6 || selectedOptionFromFirstMenu<1);

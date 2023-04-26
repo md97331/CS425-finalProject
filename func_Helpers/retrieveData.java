@@ -56,20 +56,23 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("SELECT * FROM passenger WHERE PsgID = ?");
         pstmt.setInt(1, currPsgID);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        Passenger returnedPassenger;
+        if (rs.next()){
+            String firstName = rs.getString("firstName");
+            String lastName = rs.getString("lastName");
+            String password = rs.getString("pwd");
+            String gender = rs.getString("gender");
+            String DOB = rs.getString("DOB");
+            String passport = rs.getString("passport");
+            int age = rs.getInt("age");
+            String creditCardInfo = rs.getString("creditCardInfo");
+            String cellphone = rs.getString("cellphone");
 
-        String firstName = rs.getString("firstName");
-        String lastName = rs.getString("lastName");
-        String password = rs.getString("pwd");
-        String gender = rs.getString("gender");
-        String DOB = rs.getString("DOB");
-        String passport = rs.getString("passport");
-        int age = rs.getInt("age");
-        String creditCardInfo = rs.getString("creditCardInfo");
-        String cellphone = rs.getString("cellphone");
+            returnedPassenger = new Passenger(currPsgID,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
 
-        Passenger returnedPassenger = new Passenger(currPsgID,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
-
+        } else {
+            returnedPassenger = new Passenger(-1,"","","","","","",-1,"","");
+        }
         rs.close();
         pstmt.close();
         con.close();
@@ -275,7 +278,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("Drop Table ?;");
+        PreparedStatement pstmt=con.prepareStatement("Drop Table ?");
         pstmt.setString(1, table);
         pstmt.executeQuery();
         pstmt.close();
@@ -285,7 +288,7 @@ public class retrieveData {
     public static void dropRowInTicket(int ticketNumber) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM ticket WHERE ticketNumber=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM ticket WHERE ticketNumber=?");
         pstmt.setInt(1, ticketNumber);
         pstmt.executeQuery();
         pstmt.close();
@@ -295,7 +298,7 @@ public class retrieveData {
     public static void dropRowInPassenger(int PsgID) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM passenger WHERE PsgID=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM passenger WHERE PsgID=?");
         pstmt.setInt(1, PsgID);
         pstmt.executeQuery();
         pstmt.close();
@@ -306,7 +309,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM flight WHERE flightID=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM flight WHERE flightID=?");
         pstmt.setInt(1, flightID);
         pstmt.executeQuery();
         pstmt.close();
@@ -317,7 +320,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM connection WHERE ConnectionID=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM connection WHERE ConnectionID=?");
         pstmt.setInt(1, ConnectionID);
         pstmt.executeQuery();
         pstmt.close();
@@ -406,21 +409,17 @@ public class retrieveData {
         System.out.print("lastName: "); String lastName = sc.nextLine();
         System.out.print("pwd: "); String pwd = sc.nextLine();
         System.out.print("gender: "); String gender = sc.nextLine();
-        System.out.print("DOB: "); sc.nextLine();
-        System.out.print("passport: "); sc.nextLine();
-        System.out.print("age: "); sc.nextLine();
-        System.out.print("creditCardInfo: "); sc.nextLine();
-        System.out.print("cellPhone: "); sc.nextLine();
+        System.out.print("DOB: "); String DOB = sc.nextLine();
+        System.out.print("passport: "); String passport = sc.nextLine();
+        System.out.print("age: "); int age = sc.nextInt();
+        System.out.print("creditCardInfo: "); String creditCardInfo = sc.nextLine();
+        System.out.print("cellPhone: "); String cellPhone = sc.nextLine();
 
-
-
-
-
-//        Class.forName("com.mysql.cj.jdbc.Driver");
-//        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-//        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET ");
-//        pstmt.setInt(1, currPsgID);
-//        ResultSet rs = pstmt.executeQuery();
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET PsgID = ?, flightID = ?, firstName = ?, lastName = ?, pwd = ?, gender = ?, DOB = ?, ");
+        pstmt.setInt(1, currPsgID);
+        ResultSet rs = pstmt.executeQuery();
 
 
 

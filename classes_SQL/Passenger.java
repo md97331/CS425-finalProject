@@ -26,7 +26,7 @@ public class Passenger {
         this.password = password;
         this.gender = gender;
         this.DOB = DOB;
-        while (passport.length() < 9) {
+        while (passport.length() >= 11) {
             System.out.println("Attention!: The passport must be 9 numbers in the format \"XXXXXXXXX\"");
             Scanner scanner = new Scanner(System.in);
             passport = scanner.nextLine();
@@ -131,7 +131,10 @@ public class Passenger {
     }
 
     public void printData(){
-        
+        if (PsgID == -1) {
+            System.out.println("Passenger not found!");
+            return;
+        }
         System.out.println("==============PASSENGER INFORMATION==============");
         System.out.printf("%26s %s%n", "-Passenger ID: ", getPsgID());
         System.out.printf("%26s %s%n", "-First Name: ", getFirstName());
