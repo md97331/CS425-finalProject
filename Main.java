@@ -15,16 +15,12 @@ public class Main {
         int selectedOptionFromFirstMenu = Menu.displayMenu(currUser);
         if(currUser.getAdmin() == 1){
             int selectedOptionFromSubMenu = Menu.displaySubMenu(selectedOptionFromFirstMenu);
-            
+
             Menu.runQueryBySelectedOptions(selectedOptionFromFirstMenu, selectedOptionFromSubMenu);
         }else if(currUser.getAdmin() == 2){
             //Menu.displaySubMenu(MenuOption);
         }
-//       GUI.main();
-
-
-
-        
+         GUI.main(args);
     }
-    
+
 }
