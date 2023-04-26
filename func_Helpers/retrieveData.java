@@ -319,6 +319,26 @@ public class retrieveData {
     public static void insertIntoPassengers(int psgID, String firstName, String lastName,
      String password, String gender, String DOB, String passport,
       int age, String creditCardInfo, String cellphone) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+
+        String sql = "insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        PreparedStatement stmt = con.prepareStatement(sql);
+        stmt.setInt(1, psgID);
+        stmt.setString(2, firstName);
+        stmt.setString(3, lastName);
+        stmt.setString(4, password);
+        stmt.setString(5, gender);
+        stmt.setString(6, DOB);
+        stmt.setString(7, passport);
+        stmt.setInt(8, age);
+        stmt.setString(9, creditCardInfo);
+        stmt.setString(10, cellphone);
+        stmt.executeQuery();
+        
+        stmt.close();
+        con.close();
+      int age, String creditCardInfo, String cellphone) throws SQLException, ClassNotFoundException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
