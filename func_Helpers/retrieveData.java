@@ -305,7 +305,7 @@ public class retrieveData {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         PreparedStatement pstmt=con.prepareStatement("Drop Table ?");
         pstmt.setString(1, table);
-        pstmt.executeQuery();
+        pstmt.executeUpdate();
         pstmt.close();
         con.close();
     }
@@ -315,7 +315,7 @@ public class retrieveData {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         PreparedStatement pstmt=con.prepareStatement("DELETE FROM ticket WHERE ticketNumber=?");
         pstmt.setInt(1, ticketNumber);
-        pstmt.executeQuery();
+        pstmt.executeUpdate();
         pstmt.close();
         con.close();
     }    
@@ -325,7 +325,7 @@ public class retrieveData {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         PreparedStatement pstmt=con.prepareStatement("DELETE FROM passenger WHERE PsgID=?");
         pstmt.setInt(1, PsgID);
-        pstmt.executeQuery();
+        pstmt.executeUpdate();
         pstmt.close();
         con.close();
     }
@@ -336,7 +336,7 @@ public class retrieveData {
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
         PreparedStatement pstmt=con.prepareStatement("DELETE FROM flight WHERE flightID=?");
         pstmt.setInt(1, flightID);
-        pstmt.executeQuery();
+        pstmt.executeUpdate();
         pstmt.close();
         con.close();
     }
@@ -352,27 +352,29 @@ public class retrieveData {
         con.close();
     }
 
-    public static void insertIntoPassengers(int psgID, String firstName, String lastName,
+    public static void insertIntoPassengers(int psgID, int flightID, String firstName, String lastName,
      String password, String gender, String DOB, String passport,
       int age, String creditCardInfo, String cellphone) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
 
-        String sql = "insert into passenger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        String sql = "insert into passenger values (?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, psgID);
-        stmt.setString(2, firstName);
-        stmt.setString(3, lastName);
-        stmt.setString(4, password);
-        stmt.setString(5, gender);
-        stmt.setString(6, DOB);
-        stmt.setString(7, passport);
-        stmt.setInt(8, age);
-        stmt.setString(9, creditCardInfo);
-        stmt.setString(10, cellphone);
+        stmt.setInt(2, flightID);
+        stmt.setString(3, firstName);
+        stmt.setString(4, lastName);
+        stmt.setString(5, password);
+        stmt.setString(6, gender);
+        stmt.setString(7, DOB);
+        stmt.setString(8, passport);
+        stmt.setInt(9, age);
+        stmt.setString(10, creditCardInfo);
+        stmt.setString(11, cellphone);
         stmt.executeUpdate();
         
         stmt.close();
+
         con.close();
     }
 
@@ -389,7 +391,7 @@ public class retrieveData {
         pstmt.setString(4, dateOfFlight);
         pstmt.setDouble(5, standardPrice);
         pstmt.setBoolean(6, cancelled);
-        pstmt.executeQuery();
+        pstmt.executeUpdate();
         pstmt.close();
         con.close();
     }
@@ -418,7 +420,7 @@ public class retrieveData {
         pstmt.setInt(14, psgLimitPREM);
         pstmt.setInt(15, psgLimitBUSS);
         pstmt.setInt(16, psgLimitFIRST);
-        pstmt.executeQuery();
+        pstmt.executeUpdate();
         pstmt.close();
         con.close();
 

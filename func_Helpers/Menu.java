@@ -102,6 +102,9 @@ public class Menu {
                             case 1://insert             
                                 System.out.print("Type in your psgID: ");
                                 psgID = retrieveData.verifyInteger(9999);//not nullable, primary key
+                                System.out.print("Type in your flightID: ");
+                                int flight = sc.nextInt();
+                                sc.nextLine();
                                 System.out.print("Type in your firstName: ");
                                 firstName = sc.nextLine();
                                 System.out.print("Type in your lastName: ");
@@ -120,7 +123,7 @@ public class Menu {
                                 creditCardInfo = sc.nextLine();
                                 System.out.print("Type in your cellphone: ");
                                 cellphone = sc.nextLine();
-                                retrieveData.insertIntoPassengers(psgID, firstName, lastName, password, gender, DOB, passport, age, creditCardInfo, cellphone);
+                                retrieveData.insertIntoPassengers(psgID, flight, firstName, lastName, password, gender, DOB, passport, age, creditCardInfo, cellphone);
                                 break;
                             case 2://update
                                 System.out.print("Type in your passengerID: ");
