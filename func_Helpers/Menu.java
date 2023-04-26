@@ -31,7 +31,7 @@ public class Menu {
                 password = "";
             }
         } while(username.equals("") || password.equals(""));
-        sc.close();
+        //sc.close();
         return chkAccount(username, password);
     }
     
@@ -337,12 +337,13 @@ public class Menu {
             System.out.println("5. Create Columns");
             System.out.println("6. Quit");
             System.out.println("\nPlease choose an option : ");
+            
+            
             do{  
                 selectedOptionFromSubMenu = retrieveData.verifyInteger();
                 if(selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1) 
                         System.out.println("Please type number between 1-6");  
-            }while( selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1);
-           System.out.println("saved"); 
+            }while( selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1); 
            return selectedOptionFromSubMenu;
         }
     

@@ -1,6 +1,6 @@
 import classes_SQL.*;
 import func_Helpers.*;
-import GUI.*;
+//import GUI.*;
 
 import java.sql.*;
 
@@ -16,11 +16,11 @@ public class Main {
         if(currUser.getAdmin() == 1){
             int selectedOptionFromSubMenu = Menu.displaySubMenu(selectedOptionFromFirstMenu);
 
-            Menu.runQueryBySelectedOptions(selectedOptionFromFirstMenu, selectedOptionFromSubMenu);
+            Menu.runQueryBySelectedOptions(currUser.getAdmin(),selectedOptionFromFirstMenu, selectedOptionFromSubMenu);
         }else if(currUser.getAdmin() == 2){
             //Menu.displaySubMenu(MenuOption);
         }
-        GUI.main(args);
+        
     }
 
 }
