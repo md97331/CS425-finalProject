@@ -31,7 +31,7 @@ public class Menu {
                 password = "";
             }
         } while(username.equals("") || password.equals(""));
-        sc.close();
+
         return chkAccount(username, password);
     }
     
@@ -322,7 +322,6 @@ public class Menu {
                     
                 }
             }
-            sc.close();
         }
     
         public static int displaySubMenu(int selectedOptionFromFirstMenu) {
@@ -345,7 +344,6 @@ public class Menu {
                 if(selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1) 
                         System.out.println("Please type number between 1-6");  
             }while( selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1); 
-            sc.close();
            return selectedOptionFromSubMenu;
         }
     
@@ -384,7 +382,6 @@ public class Menu {
                 System.out.println("illegal status");
                 exit(0);
             }
-            sc.close();
             return selectedOptionFromFirstMenu;
         }
 }
