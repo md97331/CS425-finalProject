@@ -55,26 +55,6 @@ public class retrieveData {
         return pnum;
     }
 
-    public static double verifyDouble() {
-        double pnum = 0; boolean flag = true;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter a double: ");
-
-        do {
-            try{
-                pnum = Double.parseDouble(input.nextLine());
-                flag = false;
-                return pnum;
-            }
-            catch(Exception e ){
-                System.out.print("Invalid Entry, Enter Integer: ");        
-                }
-        }
-        while(flag == true); 
-        input.close();
-        return pnum;
-    }
-
     public static boolean verifyBoolean() {
         boolean value = true; String str = ""; boolean flag = true;
         Scanner input = new Scanner(System.in);
@@ -113,6 +93,30 @@ public class retrieveData {
         String cellphone = rs.getString("cellphone");
 
         Passenger returnedPassenger = new Passenger(currPsgID,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
+
+        rs.close();
+        closeConnection();
+        return returnedPassenger;
+    }
+
+    public static Passenger getPassengerDataByPassport(int passportNum) throws SQLException {
+        openConnection();
+        String sql = "SELECT * FROM Passenger WHERE passport = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, passportNum);
+
+        ResultSet rs = stmt.executeQuery();
+        String firstName = rs.getString("firstName");
+        String lastName = rs.getString("lastName");
+        String password = rs.getString("pwd");
+        String gender = rs.getString("gender");
+        String DOB = rs.getString("DOB");
+        String passport = rs.getString("passport");
+        int age = rs.getInt("age");
+        String creditCardInfo = rs.getString("creditCardInfo");
+        String cellphone = rs.getString("cellphone");
+
+        Passenger returnedPassenger = new Passenger(passportNum,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
 
         rs.close();
         closeConnection();
