@@ -56,20 +56,23 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("SELECT * FROM passenger WHERE PsgID = ?");
         pstmt.setInt(1, currPsgID);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        Passenger returnedPassenger;
+        if (rs.next()){
+            String firstName = rs.getString("firstName");
+            String lastName = rs.getString("lastName");
+            String password = rs.getString("pwd");
+            String gender = rs.getString("gender");
+            String DOB = rs.getString("DOB");
+            String passport = rs.getString("passport");
+            int age = rs.getInt("age");
+            String creditCardInfo = rs.getString("creditCardInfo");
+            String cellphone = rs.getString("cellphone");
 
-        String firstName = rs.getString("firstName");
-        String lastName = rs.getString("lastName");
-        String password = rs.getString("pwd");
-        String gender = rs.getString("gender");
-        String DOB = rs.getString("DOB");
-        String passport = rs.getString("passport");
-        int age = rs.getInt("age");
-        String creditCardInfo = rs.getString("creditCardInfo");
-        String cellphone = rs.getString("cellphone");
+            returnedPassenger = new Passenger(currPsgID,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
 
-        Passenger returnedPassenger = new Passenger(currPsgID,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
-
+        } else {
+            returnedPassenger = new Passenger(-1,"","","","","","",-1,"","");
+        }
         rs.close();
         pstmt.close();
         con.close();
