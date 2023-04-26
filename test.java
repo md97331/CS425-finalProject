@@ -3,34 +3,30 @@ import java.util.*;
 public class test {
     public static void main(String[] args){
         int j = verifyInteger(3);
-        System.out.print(j);
+        System.out.print("Valid input of " + j);
     }
 
     public static int verifyInteger(int limit) {
-        int num = 0; Boolean flag = true;
-        System.out.print("Enter an Integer: ");
-        do {
-            try {
-                Scanner input = new Scanner(System.in);
-                num = input.nextInt();
-                input.nextLine();
-                if (num > 0 && num <=limit) {
-                    flag = false;
-                }
-                if (num > limit || num == 0) {
-                    System.out.print("Input out of range, Please Try again: ");
+        Scanner scanner = new Scanner(System.in);
+        int num = 0;
+        boolean isValid = false;
+        
+        while (!isValid) {
+            System.out.print("Enter an integer: ");
+            if (scanner.hasNextInt()) {
+                num = scanner.nextInt();
+                if (num > 0 && num <= limit) {
+                    isValid = true;
                 }
                 else {
-                    System.out.print("Invalid Entry, Please Try Again: ");
+                    System.out.print("Entry out of Range. Please Try again: ");
+                    scanner.next();
                 }
-                input.close();
-            }   
-            catch (Exception e) {
-                System.out.print("Invalid Entry, Enter Integer: "); 
+            } else {
+                System.out.println("Invalid input. Please enter an integer.");
+                scanner.next(); // clear the input buffer
             }
-
         }
-        while (flag == false);
-    return num;
+        return num;
     }
 }
