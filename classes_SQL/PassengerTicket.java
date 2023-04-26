@@ -69,6 +69,9 @@ public class PassengerTicket {
         this.standardPrice = 0;
         this.cancelled = false;
     }
+	public PassengerTicket(int PsgID){
+		this.PsgID = PsgID;
+	}
 
     public int getPsgID() {
         return PsgID;
@@ -191,7 +194,11 @@ public class PassengerTicket {
 	}
 
 	public void printData() {
-    	System.out.println("==============TICKET PASSENGER INFORMATION==============");
+		if (PsgID == -1) {
+			System.out.println("Ticket not found!\n");
+			return;
+		}
+    	System.out.println("\n============== TICKET PASSENGER INFORMATION ==============");
         System.out.printf("%26s %s%n", "-Passenger ID: ", getPsgID());
         System.out.printf("%26s %s%n", "-First Name: ", getFirstName());
         System.out.printf("%26s %s%n", "-Last Name: ", getLastName());

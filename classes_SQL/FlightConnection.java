@@ -52,6 +52,9 @@ public class FlightConnection {
         this.cDepartureTime = cDepartureTime;
         this.airportConnection = airportConnection;
     }
+    public FlightConnection(int FlightID) {
+        this.FlightID = FlightID;
+    }
 
     public FlightConnection() {
         this.FlightID = 0;
@@ -77,7 +80,11 @@ public class FlightConnection {
     }
 
     public void printData() {
-        System.out.println("==============FLIGHT CONNECTION INFORMATION==============");
+        if (FlightID==-1){
+            System.out.println("Connection not found!\n");
+            return;
+        }
+        System.out.println("\n==============FLIGHT CONNECTION INFORMATION==============");
         System.out.printf("%26s %s%n", "-Flight ID: ", getFlightID());
         System.out.printf("%26s %s%n", "-Distance (in miles): ", getDistance());
         System.out.printf("%26s %s%n", "-Origin: ", getOrigin());

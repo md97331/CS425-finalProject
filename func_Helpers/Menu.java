@@ -17,7 +17,7 @@ public class Menu {
     
         String username, password;
         do {
-            System.out.print("-Username:");
+            System.out.print("-Username: ");
             username = sc.nextLine();
             System.out.print("-Password: ");
             password = sc.nextLine();
@@ -60,7 +60,7 @@ public class Menu {
                     rs = pstmt.executeQuery();
                     if(rs.next()) {
                         User returnedUser = new User(username, password, 2);
-                        System.out.println("========== WELCOME " + rs.getString("firstName") + " " + rs.getString("lastName") + " ===========");
+                        System.out.println("\n================ WELCOME " + rs.getString("firstName") + " " + rs.getString("lastName") + " =================");
                         rs.close();
                         pstmt.close();
                         con.close();
@@ -100,38 +100,38 @@ public class Menu {
                     case 1://passenger    
                         switch(selectedOptionFromSubMenu){
                             case 1://insert             
-                                System.out.println("Type in your psgID:");
-                                psgID = retrieveData.verifyInteger();//not nullable, primary key
-                                System.out.println("Type in your firstName:");
+                                System.out.print("Type in your psgID: ");
+                                psgID = retrieveData.verifyInteger(9999);//not nullable, primary key
+                                System.out.print("Type in your firstName: ");
                                 firstName = sc.nextLine();
-                                System.out.println("Type in your lastName:");
+                                System.out.print("Type in your lastName: ");
                                 lastName = sc.nextLine();
-                                System.out.println("Type in your password:");
+                                System.out.print("Type in your password: ");
                                 password = sc.nextLine();
-                                System.out.println("Type in your gender:");
+                                System.out.print("Type in your gender: ");
                                 gender = sc.nextLine();
-                                System.out.println("Type in your DOB:");
+                                System.out.print("Type in your DOB: ");
                                 DOB = sc.nextLine();
-                                System.out.println("Type in your passport:");
+                                System.out.print("Type in your passport: ");
                                 passport = sc.nextLine();
-                                System.out.println("Type in your age:");
-                                age = retrieveData.verifyInteger();
-                                System.out.println("Type in your creditCardInfo:");
+                                System.out.print("Type in your age: ");
+                                age = retrieveData.verifyInteger(99);
+                                System.out.print("Type in your creditCardInfo: ");
                                 creditCardInfo = sc.nextLine();
-                                System.out.println("Type in your cellphone:");
+                                System.out.print("Type in your cellphone: ");
                                 cellphone = sc.nextLine();
                                 retrieveData.insertIntoPassengers(psgID, firstName, lastName, password, gender, DOB, passport, age, creditCardInfo, cellphone);
                                 break;
                             case 2://update
                                 break;
                             case 3://delete
-                                System.out.println("Type in your psgID:");
-                                psgID = retrieveData.verifyInteger();
+                                System.out.print("Type in your psgID: ");
+                                psgID = retrieveData.verifyInteger(9999);
                                 retrieveData.dropRowInPassenger(psgID);
                                 break;
                             case 4://select
-                                System.out.println("Type in your psgID:");
-                                psgID = retrieveData.verifyInteger();
+                                System.out.print("Type in your psgID: ");
+                                psgID = retrieveData.verifyInteger(9999);
                                 uPsge = retrieveData.getPassengerData(psgID);
                                 uPsge.printData();
                                 break;
@@ -143,50 +143,50 @@ public class Menu {
                     case 2: //flight
                         switch(selectedOptionFromSubMenu){
                             case 1://insert             
-                                System.out.println("Type in your flightID:");
-                                flightID = retrieveData.verifyInteger();//not nullable, primary key
-                                System.out.println("Type in your distance:");
-                                distance = retrieveData.verifyInteger();
-                                System.out.println("Type in your origin:");
+                                System.out.print("Type in your flightID: ");
+                                flightID = retrieveData.verifyInteger(9999);//not nullable, primary key
+                                System.out.print("Type in your distance: ");
+                                distance = retrieveData.verifyInteger(99999);
+                                System.out.print("Type in your origin: ");
                                 origin = sc.nextLine();
-                                System.out.println("Type in your destination:");
+                                System.out.print("Type in your destination: ");
                                 destination = sc.nextLine();
-                                System.out.println("Type in your hours:");
+                                System.out.print("Type in your hours: ");
                                 hours = sc.nextDouble();
-                                System.out.println("Type in your refundable:");
+                                System.out.print("Type in your refundable: ");
                                 refundable = retrieveData.verifyBoolean();
-                                System.out.println("Type in your oneWay:");
+                                System.out.print("Type in your oneWay: ");
                                 oneWay = retrieveData.verifyBoolean();
-                                System.out.println("Type in your arrivalTime:");
+                                System.out.print("Type in your arrivalTime: ");
                                 arrivalTime = sc.nextLine();
-                                System.out.println("Type in your departureTime:");
+                                System.out.print("Type in your departureTime: ");
                                 departureTime = sc.nextLine();
-                                System.out.println("Type in your flexibleDate:");
+                                System.out.print("Type in your flexibleDate: ");
                                 flexibleDate = retrieveData.verifyBoolean();
-                                System.out.println("Type in your milesDiscount:");
-                                milesDiscount = retrieveData.verifyInteger();
-                                System.out.println("Type in your psgLimitECON:");
-                                psgLimitECON = retrieveData.verifyInteger();
-                                System.out.println("Type in your psgLimitCOMF:");
-                                psgLimitCOMF = retrieveData.verifyInteger();
-                                System.out.println("Type in your psgLimitPREM:");
-                                psgLimitPREM = retrieveData.verifyInteger();
-                                System.out.println("Type in your psgLimitBUSS:");
-                                psgLimitBUSS = retrieveData.verifyInteger();
-                                System.out.println("Type in your psgLimitFIRST:");
-                                psgLimitFIRST = retrieveData.verifyInteger();
+                                System.out.print("Type in your milesDiscount: ");
+                                milesDiscount = retrieveData.verifyInteger(9999);
+                                System.out.print("Type in your psgLimitECON: ");
+                                psgLimitECON = retrieveData.verifyInteger(9999);
+                                System.out.print("Type in your psgLimitCOMF: ");
+                                psgLimitCOMF = retrieveData.verifyInteger(9999);
+                                System.out.print("Type in your psgLimitPREM: ");
+                                psgLimitPREM = retrieveData.verifyInteger(9999);
+                                System.out.print("Type in your psgLimitBUSS: ");
+                                psgLimitBUSS = retrieveData.verifyInteger(9999);
+                                System.out.print("Type in your psgLimitFIRST: ");
+                                psgLimitFIRST = retrieveData.verifyInteger(9999);
                                 retrieveData.insertIntoFlight(flightID, distance, origin, destination, hours, refundable, oneWay, arrivalTime, departureTime, flexibleDate, milesDiscount, psgLimitECON, psgLimitCOMF, psgLimitPREM, psgLimitBUSS, psgLimitFIRST);
                                 break;
                             case 2://update
                                 break;
                             case 3://delete
-                                System.out.println("Type in your flightID:");
-                                flightID = retrieveData.verifyInteger();
+                                System.out.print("Type in your flightID: ");
+                                flightID = retrieveData.verifyInteger(9999);
                                 retrieveData.dropRowInFlight(flightID);
                                 break;
                             case 4://select
-                                System.out.println("Type in your flightID:");
-                                flightID = retrieveData.verifyInteger();
+                                System.out.print("Type in your flightID: ");
+                                flightID = retrieveData.verifyInteger(9999);
                                 flght = retrieveData.getFlightData(flightID);
                                 flght.printData();
                                 break;
@@ -201,13 +201,13 @@ public class Menu {
                             case 2://update
                                 break;
                             case 3://delete
-                                System.out.println("Type in your ConnectionID:");
-                                ConnectionID = retrieveData.verifyInteger();
+                                System.out.print("Type in your ConnectionID: ");
+                                ConnectionID = retrieveData.verifyInteger(9999);
                                 retrieveData.dropRowInConnection(ConnectionID);
                                 break;
                             case 4://select
-                                System.out.println("Type in your flightID:");
-                                flightID = retrieveData.verifyInteger();
+                                System.out.print("Type in your flightID: ");
+                                flightID = retrieveData.verifyInteger(9999);
                                 flightConn = retrieveData.getFlightConnection(flightID);
                                 flightConn.printData();
                                 break;
@@ -218,30 +218,30 @@ public class Menu {
                     case 4: //ticket
                         switch(selectedOptionFromSubMenu){
                             case 1://insert             
-                                System.out.println("Type in your ticketNumber:");
-                                ticketNumber = retrieveData.verifyInteger();//not nullable, primary key
-                                System.out.println("Type in your classType:");
+                                System.out.print("Type in your ticketNumber: ");
+                                ticketNumber = retrieveData.verifyInteger(9999);//not nullable, primary key
+                                System.out.print("Type in your classType: ");
                                 classType = sc.nextLine();
-                                System.out.println("Type in your PsgID:");
-                                PsgID = retrieveData.verifyInteger();
-                                System.out.println("Type in your dateOfFlight:");
+                                System.out.print("Type in your PsgID: ");
+                                PsgID = retrieveData.verifyInteger(9999);
+                                System.out.print("Type in your dateOfFlight: ");
                                 dateOfFlight = sc.nextLine();
-                                System.out.println("Type in your standardPrice:");
+                                System.out.print("Type in your standardPrice: ");
                                 standardPrice = sc.nextDouble();
-                                System.out.println("Type in your cancelled:");
+                                System.out.print("Type in your cancelled: ");
                                 cancelled = retrieveData.verifyBoolean();
                                 retrieveData.insertIntoTicket(ticketNumber, classType, PsgID, dateOfFlight, standardPrice, cancelled);
                                 break;
                             case 2://update
                                 break;
                             case 3://delete
-                                System.out.println("Type in your ticketNumber:");
-                                ticketNumber = retrieveData.verifyInteger();
+                                System.out.print("Type in your ticketNumber: ");
+                                ticketNumber = retrieveData.verifyInteger(9999);
                                 retrieveData.dropRowInTicket(ticketNumber);
                                 break;
                             case 4://select
-                                System.out.println("Type in your ticketNumber:");
-                                ticketNumber = retrieveData.verifyInteger();
+                                System.out.print("Type in your ticketNumber: ");
+                                ticketNumber = retrieveData.verifyInteger(9999);
                                 ticketPay = retrieveData.getTicketPaymentData(ticketNumber);
                                 ticketPay.printData();
                                 break;
@@ -258,8 +258,8 @@ public class Menu {
                             case 3://delete
                                 break;
                             case 4://select
-                                System.out.println("Type in your ticketNumber:");
-                                ticketNumber = retrieveData.verifyInteger();
+                                System.out.print("Type in your ticketNumber: ");
+                                ticketNumber = retrieveData.verifyInteger(9999);
                                 ticketPay = retrieveData.getTicketPaymentData(ticketNumber);
                                 ticketPay.printData();
                                 break;
@@ -279,42 +279,43 @@ public class Menu {
                         System.out.println("1. Search by origin and destination ");
                         System.out.println("2. Search by flightID");
                         System.out.println("\n Please choose one of the options:");
-                        do{
-                            selectedFlightOptions = retrieveData.verifyInteger();
-                            if(selectedFlightOptions < 1 || selectedFlightOptions > 2)
-                                System.out.println("Please type number between 1-2");
-                        }while(selectedFlightOptions < 1 || selectedFlightOptions > 2);     
+                        //do{
+                        //    selectedFlightOptions = retrieveData.verifyInteger(3);
+                        //    if(selectedFlightOptions < 1 || selectedFlightOptions > 2)
+                        //        System.out.println("Please type number between 1-2");
+                        //}while(selectedFlightOptions < 1 || selectedFlightOptions > 2);
+                        selectedFlightOptions = retrieveData.verifyInteger(2);
                         if(selectedFlightOptions==1){
-                            System.out.println("Type in your origin:");
+                            System.out.print("Type in your origin: ");
                             origin = sc.nextLine();
-                            System.out.println("Type in your destination:"); 
+                            System.out.print("Type in your destination: ");
                             destination = sc.nextLine();
                             flght = retrieveData.getFlightData(destination, origin);
                         }else{
-                            System.out.println("Type in your flightID:");
-                            flightID = retrieveData.verifyInteger();
+                            System.out.print("Type in your flightID: ");
+                            flightID = retrieveData.verifyInteger(9999);
                             flght = retrieveData.getFlightData(flightID);
                         }
                         flght.printData();
                         break;   
                     case 2://Book Ticket
-                        System.out.println("Type in your ticketNumber:");
-                        ticketNumber = retrieveData.verifyInteger();//not nullable, primary key
-                        System.out.println("Type in your classType:");
+                        System.out.print("Type in your ticketNumber: ");
+                        ticketNumber = retrieveData.verifyInteger(9999);//not nullable, primary key
+                        System.out.print("Type in your classType: ");
                         classType = sc.nextLine();
-                        System.out.println("Type in your PsgID:");
-                        PsgID = retrieveData.verifyInteger();
-                        System.out.println("Type in your dateOfFlight:");
+                        System.out.print("Type in your PsgID: ");
+                        PsgID = retrieveData.verifyInteger(9999);
+                        System.out.print("Type in your dateOfFlight: ");
                         dateOfFlight = sc.nextLine();
-                        System.out.println("Type in your standardPrice:");
+                        System.out.print("Type in your standardPrice: ");
                         standardPrice = sc.nextDouble();
-                        System.out.println("Type in your cancelled:");
+                        System.out.print("Type in your cancelled: ");
                         cancelled = retrieveData.verifyBoolean();
                         retrieveData.insertIntoTicket(ticketNumber, classType, PsgID, dateOfFlight, standardPrice, cancelled);
                         break;
                     case 3://Search User Info
-                        System.out.println("Type in your psgID:");
-                        psgID = retrieveData.verifyInteger();
+                        System.out.print("Type in your psgID: ");
+                        psgID = retrieveData.verifyInteger(9999);
                         uPsge = retrieveData.getPassengerData(psgID);
                         uPsge.printData();
                         break;
@@ -329,22 +330,22 @@ public class Menu {
             Map<Integer, String> tableNamesFromFirstMenu = new Maps().initTablesFromFirstAdminMenu();
             String tableNameFromFirstMenu = tableNamesFromFirstMenu.get(selectedOptionFromFirstMenu);
             int selectedOptionFromSubMenu = 0;
-            System.out.println("\n================== " + tableNameFromFirstMenu + "==================");
+            System.out.println("\n================== " + tableNameFromFirstMenu + " ==================");
             System.out.println("1. Add " + tableNameFromFirstMenu);
             System.out.println("2. Update " + tableNameFromFirstMenu);
             System.out.println("3. Delete " + tableNameFromFirstMenu);
             System.out.println("4. View " + tableNameFromFirstMenu);
             System.out.println("5. Create Columns");
             System.out.println("6. Quit");
-            System.out.println("\nPlease choose an option : ");
+            System.out.print("\nPlease choose an option: ");
             
             
-            do{  
-                selectedOptionFromSubMenu = Integer.parseInt(sc.nextLine());
-                if(selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1) 
-                        System.out.println("Please type number between 1-6");  
-            }while( selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1); 
-           return selectedOptionFromSubMenu;
+            //do{
+            //    selectedOptionFromSubMenu = Integer.parseInt(sc.nextLine());
+            //    if(selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1)
+            //            System.out.println("Please type number between 1-6");
+            //}while( selectedOptionFromSubMenu>6 || selectedOptionFromSubMenu<1);
+           return selectedOptionFromSubMenu = retrieveData.verifyInteger(6);
         }
     
         public static int displayMenu(User userAccount) {
@@ -358,12 +359,13 @@ public class Menu {
                     System.out.println("4. Edit Ticket");
                     System.out.println("5. Edit Payment");
                     System.out.println("6. Quit");
-                    System.out.println("\nPlease choose an option : ");
-                    do{
-                    selectedOptionFromFirstMenu = Integer.parseInt(sc.nextLine());
-                    if(selectedOptionFromFirstMenu>6 || selectedOptionFromFirstMenu<1) 
-                        System.out.println("Please type number between 1-6");    
-                    }while( selectedOptionFromFirstMenu>6 || selectedOptionFromFirstMenu<1);
+                    System.out.print("\nPlease choose an option : ");
+                    selectedOptionFromFirstMenu = retrieveData.verifyInteger(6);
+                    //do{
+                    //selectedOptionFromFirstMenu = Integer.parseInt(sc.nextLine());
+                    //if(selectedOptionFromFirstMenu>6 || selectedOptionFromFirstMenu<1)
+                    //    System.out.println("Please type number between 1-6");
+                    //}while( selectedOptionFromFirstMenu>6 || selectedOptionFromFirstMenu<1);
                     if (selectedOptionFromFirstMenu == 6) exit(0);
             }else if (userAccount.getAdmin() == 2) { //user
                 System.out.println("\n================== Menu ==================");
@@ -371,12 +373,13 @@ public class Menu {
                 System.out.println("2. Book Ticket");
                 System.out.println("3. Search User Info");
                 System.out.println("4. Quit");
-                System.out.println("\nPlease choose an option : ");
-                do{
-                    selectedOptionFromFirstMenu = retrieveData.verifyInteger();
-                    if(selectedOptionFromFirstMenu>4 || selectedOptionFromFirstMenu<1) 
-                    System.out.println("Please type number between 1-4");   
-                }while( selectedOptionFromFirstMenu>4 || selectedOptionFromFirstMenu<1);
+                System.out.print("\nPlease choose an option : ");
+                //do{
+                //    selectedOptionFromFirstMenu = retrieveData.verifyInteger(4);
+                //    if(selectedOptionFromFirstMenu>4 || selectedOptionFromFirstMenu<1)
+                //    System.out.println("Please type number between 1-4");
+                //}while( selectedOptionFromFirstMenu>4 || selectedOptionFromFirstMenu<1);
+                selectedOptionFromFirstMenu = retrieveData.verifyInteger(4);
                 if (selectedOptionFromFirstMenu == 4) exit(0);
             }else{
                 System.out.println("illegal status");

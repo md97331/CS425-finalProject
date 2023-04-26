@@ -8,24 +8,26 @@ import java.util.Scanner;
 
 public class retrieveData {
     public static String SQLPASSWORD = "First5210";
-    public static int verifyInteger() {
-        int pnum = 0; boolean flag = true;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter an integer: ");
+    public static int verifyInteger(int limit) {
+        Scanner scanner = new Scanner(System.in);
+        int num = 0;
+        boolean isValid = false;
 
-        do {
-            try{
-                pnum = Integer.parseInt(input.nextLine());
-                flag = false;
-                return pnum;
-            }
-            catch(Exception e ){
-                System.out.print("Invalid Entry, Enter Integer: ");        
+        while (!isValid) {
+            if (scanner.hasNextInt()) {
+                num = scanner.nextInt();
+                if (num > 0 && num <= limit) {
+                    isValid = true;
                 }
+                else {
+                    System.out.print("Entry out of Range. Please enter an integer from 1 - " + limit + ": ");
+                }
+            } else {
+                System.out.print("Invalid input. Please enter an integer from 1 - " + limit + ": ");
+                scanner.next(); // clear the input buffer
+            }
         }
-        while(flag == true); 
-        input.close();
-        return pnum;
+        return num;
     }
 
     public static boolean verifyBoolean() {
@@ -86,19 +88,23 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("SELECT * FROM Passenger WHERE passport = ?");
         pstmt.setInt(1, passportNum);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        Passenger returnedPassenger;
+        if (rs.next()){
+            String firstName = rs.getString("firstName");
+            String lastName = rs.getString("lastName");
+            String password = rs.getString("pwd");
+            String gender = rs.getString("gender");
+            String DOB = rs.getString("DOB");
+            String passport = rs.getString("passport");
+            int age = rs.getInt("age");
+            String creditCardInfo = rs.getString("creditCardInfo");
+            String cellphone = rs.getString("cellphone");
+            returnedPassenger = new Passenger(passportNum,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
 
-        String firstName = rs.getString("firstName");
-        String lastName = rs.getString("lastName");
-        String password = rs.getString("pwd");
-        String gender = rs.getString("gender");
-        String DOB = rs.getString("DOB");
-        String passport = rs.getString("passport");
-        int age = rs.getInt("age");
-        String creditCardInfo = rs.getString("creditCardInfo");
-        String cellphone = rs.getString("cellphone");
+        } else {
+            returnedPassenger = new Passenger(-1,"","","error","","","", -1, "","");
 
-        Passenger returnedPassenger = new Passenger(passportNum,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
+        }
 
         rs.close();
         pstmt.close();
@@ -111,26 +117,30 @@ public class retrieveData {
         PreparedStatement Get = Con.prepareStatement("select * from flight where flightID = ?");
         Get.setInt(1, currFlightID);
         ResultSet rs = Get.executeQuery();
-        rs.next();
+        Flight returnedFlight;
+        if(rs.next()){
+            int distance = rs.getInt("distance");
+            String origin = rs.getString("origin");
+            String destination = rs.getString("destination");
+            double hours = rs.getDouble("hours");
+            boolean refundable = rs.getBoolean("refundable");
+            boolean oneWay = rs.getBoolean("oneWay");
+            String arrivalTime = rs.getString("arrivalTime");
+            String departureTime = rs.getString("departureTime");
+            boolean flexibleDate = rs.getBoolean("flexibleDate");
+            int milesDiscount = rs.getInt("milesDiscount");
+            int psgLimitECON = rs.getInt("psgLimitECON");
+            int psgLimitCOMF = rs.getInt("psgLimitCOMF");
+            int psgLimitPREM = rs.getInt("psgLimitPREM");
+            int psgLimitBUSS = rs.getInt("psgLimitBUSS");
+            int psgLimitFIRST = rs.getInt("psgLimitFIRST");
 
-        int distance = rs.getInt("distance");
-        String origin = rs.getString("origin");
-        String destination = rs.getString("destination");
-        double hours = rs.getDouble("hours");
-        boolean refundable = rs.getBoolean("refundable");
-        boolean oneWay = rs.getBoolean("oneWay");
-        String arrivalTime = rs.getString("arrivalTime");
-        String departureTime = rs.getString("departureTime");
-        boolean flexibleDate = rs.getBoolean("flexibleDate");
-        int milesDiscount = rs.getInt("milesDiscount");
-        int psgLimitECON = rs.getInt("psgLimitECON");
-        int psgLimitCOMF = rs.getInt("psgLimitCOMF");
-        int psgLimitPREM = rs.getInt("psgLimitPREM");
-        int psgLimitBUSS = rs.getInt("psgLimitBUSS");
-        int psgLimitFIRST = rs.getInt("psgLimitFIRST");
+            returnedFlight = new Flight(currFlightID,distance,origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
 
-        Flight returnedFlight = new Flight(currFlightID,distance,origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
+        } else {
+            returnedFlight = new Flight(-1,-1,"","",-1,false, false, "", "",false,-1,-1,-1,-1, -1,-1);
 
+        }
         rs.close();
         Get.close();
         Con.close();
@@ -143,19 +153,23 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("select * from payment natural join ticket where ticketNumber = ?");
         pstmt.setInt(1, currTicketNum);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        TicketPayment returnedTicketPayment;
+        if(rs.next()){
+            String classType = rs.getString("classType");
+            int PsgID = rs.getInt("PsgID");
+            String dateOfFlight = rs.getString("dateOfFlight");
+            double standardPrice = rs.getDouble("standardPrice");
+            boolean cancelled = rs.getBoolean("cancelled");
+            int confirmationID = rs.getInt("confirmationID");
+            String paymentInfo = rs.getString("paymentInfo");
+            int eCredits = rs.getInt("eCredits");
+            int deltaGIftCard = rs.getInt("deltaGIftCard");
 
-        String classType = rs.getString("classType");
-        int PsgID = rs.getInt("PsgID");
-        String dateOfFlight = rs.getString("dateOfFlight");
-        double standardPrice = rs.getDouble("standardPrice");
-        boolean cancelled = rs.getBoolean("cancelled");
-        int confirmationID = rs.getInt("confirmationID");
-        String paymentInfo = rs.getString("paymentInfo");
-        int eCredits = rs.getInt("eCredits");
-        int deltaGIftCard = rs.getInt("deltaGIftCard");
+             returnedTicketPayment = new TicketPayment(currTicketNum,classType,PsgID,dateOfFlight,standardPrice,cancelled, confirmationID, paymentInfo, eCredits,deltaGIftCard);
+        } else {
+            returnedTicketPayment = new TicketPayment(-1,"",-1,"",-1,false, -1, "", -1,-1);
+        }
 
-        TicketPayment returnedTicketPayment = new TicketPayment(currTicketNum,classType,PsgID,dateOfFlight,standardPrice,cancelled, confirmationID, paymentInfo, eCredits,deltaGIftCard);
 
         rs.close();
         pstmt.close();
@@ -169,33 +183,38 @@ public class retrieveData {
         PreparedStatement pstmt=con.prepareStatement("select * from connection join flight on (connection.flightID = flight.flightID) where flight.flightID = ?");
         pstmt.setInt(1, currFlightID);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        FlightConnection returnedFlightConnection;
+        if(rs.next()){
+            int distance = rs.getInt("distance");
+            String origin = rs.getString("origin");
+            String destination = rs.getString("destination");
+            double hours = rs.getDouble("hours");
+            boolean refundable = rs.getBoolean("refundable");
+            boolean oneWay = rs.getBoolean("oneWay");
+            String arrivalTime = rs.getString("arrivalTime");
+            String departureTime = rs.getString("departureTime");
+            boolean flexibleDate = rs.getBoolean("flexibleDate");
+            int milesDiscount = rs.getInt("milesDiscount");
+            int psgLimitECON = rs.getInt("psgLimitECON");
+            int psgLimitCOMF = rs.getInt("psgLimitCOMF");
+            int psgLimitPREM = rs.getInt("psgLimitPREM");
+            int psgLimitBUSS = rs.getInt("psgLimitBUSS");
+            int psgLimitFIRST = rs.getInt("psgLimitFIRST");
+            int connectionID = rs.getInt("ConnectionID");
+            String cArrivalTime = rs.getString("cArrivalTime");
+            String cDepartureTime = rs.getString("cDepartureTime");
+            String airportConnection = rs.getString("airportConnection");
 
-        int distance = rs.getInt("distance");
-        String origin = rs.getString("origin");
-        String destination = rs.getString("destination");
-        double hours = rs.getDouble("hours");
-        boolean refundable = rs.getBoolean("refundable");
-        boolean oneWay = rs.getBoolean("oneWay");
-        String arrivalTime = rs.getString("arrivalTime");
-        String departureTime = rs.getString("departureTime");
-        boolean flexibleDate = rs.getBoolean("flexibleDate");
-        int milesDiscount = rs.getInt("milesDiscount");
-        int psgLimitECON = rs.getInt("psgLimitECON");
-        int psgLimitCOMF = rs.getInt("psgLimitCOMF");
-        int psgLimitPREM = rs.getInt("psgLimitPREM");
-        int psgLimitBUSS = rs.getInt("psgLimitBUSS");
-        int psgLimitFIRST = rs.getInt("psgLimitFIRST");
-        int connectionID = rs.getInt("ConnectionID");
-        String cArrivalTime = rs.getString("cArrivalTime");
-        String cDepartureTime = rs.getString("cDepartureTime");
-        String airportConnection = rs.getString("airportConnection");
+
+            returnedFlightConnection = new FlightConnection(currFlightID,distance,
+                    origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
+                    milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST,
+                    connectionID, cArrivalTime, cDepartureTime, airportConnection);
+        } else {
+            returnedFlightConnection = new FlightConnection(-1);
+        }
 
 
-        FlightConnection returnedFlightConnection = new FlightConnection(currFlightID,distance,
-        origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
-        milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST,
-        connectionID, cArrivalTime, cDepartureTime, airportConnection);
 
         rs.close();
         pstmt.close();
@@ -210,29 +229,32 @@ public class retrieveData {
         pstmt.setString(1, dest);
         pstmt.setString(2, ori);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        Flight returnedFlight;
+        if (rs.next()){
+            int flightID = rs.getInt("flightID");
+            int distance = rs.getInt("distance");
+            String origin = rs.getString("origin");
+            String destination = rs.getString("destination");
+            double hours = rs.getDouble("hours");
+            boolean refundable = rs.getBoolean("refundable");
+            boolean oneWay = rs.getBoolean("oneWay");
+            String arrivalTime = rs.getString("arrivalTime");
+            String departureTime = rs.getString("departureTime");
+            boolean flexibleDate = rs.getBoolean("flexibleDate");
+            int milesDiscount = rs.getInt("milesDiscount");
+            int psgLimitECON = rs.getInt("psgLimitECON");
+            int psgLimitCOMF = rs.getInt("psgLimitCOMF");
+            int psgLimitPREM = rs.getInt("psgLimitPREM");
+            int psgLimitBUSS = rs.getInt("psgLimitBUSS");
+            int psgLimitFIRST = rs.getInt("psgLimitFIRST");
 
-        int flightID = rs.getInt("flightID");
-        int distance = rs.getInt("distance");
-        String origin = rs.getString("origin");
-        String destination = rs.getString("destination");
-        double hours = rs.getDouble("hours");
-        boolean refundable = rs.getBoolean("refundable");
-        boolean oneWay = rs.getBoolean("oneWay");
-        String arrivalTime = rs.getString("arrivalTime");
-        String departureTime = rs.getString("departureTime");
-        boolean flexibleDate = rs.getBoolean("flexibleDate");
-        int milesDiscount = rs.getInt("milesDiscount");
-        int psgLimitECON = rs.getInt("psgLimitECON");
-        int psgLimitCOMF = rs.getInt("psgLimitCOMF");
-        int psgLimitPREM = rs.getInt("psgLimitPREM");
-        int psgLimitBUSS = rs.getInt("psgLimitBUSS");
-        int psgLimitFIRST = rs.getInt("psgLimitFIRST");
+            returnedFlight = new Flight(flightID,distance,
+                    origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
+                    milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
 
-        Flight returnedFlight = new Flight(flightID,distance,
-        origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,
-        milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
-
+        } else {
+            returnedFlight = new Flight(-1);
+        }
         rs.close();
         pstmt.close();
         con.close();
@@ -246,27 +268,30 @@ public class retrieveData {
         pstmt.setString(1, first);
         pstmt.setString(2, last);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        PassengerTicket returnedPassengerTicket;
+        if(rs.next()){
+            int PsgID = rs.getInt("PsgID");
+            String firstName = rs.getString("firstName");
+            String lastName = rs.getString("lastName");
+            String password = rs.getString("pwd");
+            String gender = rs.getString("gender");
+            String DOB = rs.getString("DOB");
+            String passport = rs.getString("passport");
+            int age = rs.getInt("age");
+            String creditCardInfo = rs.getString("creditCardInfo");
+            String cellphone = rs.getString("cellphone");
+            int ticketNumber = rs.getInt("ticketNumber");
+            String classType = rs.getString("classType");
+            String dateOfFlight = rs.getString("dateOfFlight");
+            double standardPrice = rs.getDouble("standardPrice");
+            boolean cancelled = rs.getBoolean("cancelled");
 
-        int PsgID = rs.getInt("PsgID");
-        String firstName = rs.getString("firstName");
-        String lastName = rs.getString("lastName");
-        String password = rs.getString("pwd");
-        String gender = rs.getString("gender");
-        String DOB = rs.getString("DOB");
-        String passport = rs.getString("passport");
-        int age = rs.getInt("age");
-        String creditCardInfo = rs.getString("creditCardInfo");
-        String cellphone = rs.getString("cellphone");
-        int ticketNumber = rs.getInt("ticketNumber");
-        String classType = rs.getString("classType");
-        String dateOfFlight = rs.getString("dateOfFlight");
-        double standardPrice = rs.getDouble("standardPrice");
-        boolean cancelled = rs.getBoolean("cancelled");
-
-        PassengerTicket returnedPassengerTicket = new PassengerTicket(PsgID,firstName,lastName,
-        password,gender,DOB, passport, age, creditCardInfo,cellphone, ticketNumber, classType, dateOfFlight,
-        standardPrice, cancelled);
+            returnedPassengerTicket = new PassengerTicket(PsgID,firstName,lastName,
+                    password,gender,DOB, passport, age, creditCardInfo,cellphone, ticketNumber, classType, dateOfFlight,
+                    standardPrice, cancelled);
+        } else {
+            returnedPassengerTicket = new PassengerTicket(-1);
+        }
 
         rs.close();
         pstmt.close();
@@ -333,7 +358,7 @@ public class retrieveData {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
 
-        String sql = "insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        String sql = "insert into passenger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, psgID);
         stmt.setString(2, firstName);
