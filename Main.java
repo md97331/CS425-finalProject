@@ -12,21 +12,15 @@ public class Main {
         do {
             currUser = Menu.initMenu();
         } while (currUser.getAdmin()==-1 || currUser.getAdmin()==9);
+        int selectedOptionFromFirstMenu = Menu.displayMenu(currUser);
+        if(currUser.getAdmin() == 1){
+            int selectedOptionFromSubMenu = Menu.displaySubMenu(selectedOptionFromFirstMenu);
 
-        do {
-            int selectedOptionFromFirstMenu = Menu.displayMenu(currUser);
-            if(currUser.getAdmin() == 1){//admin
-                int selectedOptionFromSubMenu = Menu.displaySubMenu(selectedOptionFromFirstMenu);
-                Menu.runQueryBySelectedOptions(currUser.getAdmin(),selectedOptionFromFirstMenu, selectedOptionFromSubMenu);
-            }else if(currUser.getAdmin() == 2){//user
-                Menu.runQueryBySelectedOptions(currUser.getAdmin(),selectedOptionFromFirstMenu, 0);
-            }
-        } while (true);
-//       GUI.main();
-
-
-
-        
+            Menu.runQueryBySelectedOptions(selectedOptionFromFirstMenu, selectedOptionFromSubMenu);
+        }else if(currUser.getAdmin() == 2){
+            //Menu.displaySubMenu(MenuOption);
+        }
+         GUI.main(args);
     }
-    
+
 }
