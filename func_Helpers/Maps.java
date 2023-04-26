@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Maps {
-    public static String SQLPASSWORD = "January201#";
+    public static String SQLPASSWORD = "First5210";
     public Map<Integer, String> initTablesFromFirstAdminMenu() {
         Map<Integer, String> map = new HashMap<>();
         map.put(1, "Passenger");
