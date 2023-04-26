@@ -19,8 +19,7 @@ public class test {
                     isValid = true;
                 }
                 else {
-                    System.out.print("Entry out of Range. Please Try again: ");
-                    scanner.next();
+                    System.out.print("Entry out of Range. ");
                 }
             } else {
                 System.out.println("Invalid input. Please enter an integer.");
