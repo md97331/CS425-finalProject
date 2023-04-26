@@ -26,7 +26,7 @@ public class Passenger {
         this.password = password;
         this.gender = gender;
         this.DOB = DOB;
-        while (passport.length() < 9) {
+        while (passport.length() >= 11) {
             System.out.println("Attention!: The passport must be 9 numbers in the format \"XXXXXXXXX\"");
             Scanner scanner = new Scanner(System.in);
             passport = scanner.nextLine();
