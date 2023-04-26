@@ -447,7 +447,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET PsgID = ?, flightID = ?, firstName = ?, lastName = ?, pwd = ?, gender = ?, DOB = ?, passport = ?, age = ?, creditCardInfo = ?, cellPhone = ? WHERE PsgID = ? ");
+        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET PsgID = ?, flightID = ?, firstName = ?, lastName = ?, pwd = ?, gender = ?, DOB = ?, passport = ?, age = ?, creditCardInfo = ?, cellPhone = ? where passport = ?, age = ?, creditCardInfo = ?, cellPhone = ? WHERE PsgID = ? ");
 
         pstmt.setInt(1, PsgID);
         pstmt.setInt(2, flightID);
