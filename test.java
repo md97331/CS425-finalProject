@@ -12,7 +12,6 @@ public class test {
         boolean isValid = false;
         
         while (!isValid) {
-            System.out.print("Enter an integer: ");
             if (scanner.hasNextInt()) {
                 num = scanner.nextInt();
                 if (num > 0 && num <= limit) {

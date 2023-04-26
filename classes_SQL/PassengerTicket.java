@@ -198,7 +198,7 @@ public class PassengerTicket {
 			System.out.println("Ticket not found!\n");
 			return;
 		}
-    	System.out.println("==============TICKET PASSENGER INFORMATION==============");
+    	System.out.println("\n============== TICKET PASSENGER INFORMATION ==============");
         System.out.printf("%26s %s%n", "-Passenger ID: ", getPsgID());
         System.out.printf("%26s %s%n", "-First Name: ", getFirstName());
         System.out.printf("%26s %s%n", "-Last Name: ", getLastName());

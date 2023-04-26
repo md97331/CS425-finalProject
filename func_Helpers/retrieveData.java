@@ -8,24 +8,26 @@ import java.util.Scanner;
 
 public class retrieveData {
     public static String SQLPASSWORD = "First5210";
-    public static int verifyInteger() {
-        int pnum = 0; boolean flag = true;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter an integer: ");
+    public static int verifyInteger(int limit) {
+        Scanner scanner = new Scanner(System.in);
+        int num = 0;
+        boolean isValid = false;
 
-        do {
-            try{
-                pnum = Integer.parseInt(input.nextLine());
-                flag = false;
-                return pnum;
-            }
-            catch(Exception e ){
-                System.out.print("Invalid Entry, Enter Integer: ");        
+        while (!isValid) {
+            if (scanner.hasNextInt()) {
+                num = scanner.nextInt();
+                if (num > 0 && num <= limit) {
+                    isValid = true;
                 }
+                else {
+                    System.out.print("Entry out of Range. Please enter an integer from 1 - " + limit + ": ");
+                }
+            } else {
+                System.out.print("Invalid input. Please enter an integer from 1 - " + limit + ": ");
+                scanner.next(); // clear the input buffer
+            }
         }
-        while(flag == true); 
-        input.close();
-        return pnum;
+        return num;
     }
 
     public static boolean verifyBoolean() {
@@ -356,7 +358,7 @@ public class retrieveData {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
 
-        String sql = "insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        String sql = "insert into passenger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, psgID);
         stmt.setString(2, firstName);

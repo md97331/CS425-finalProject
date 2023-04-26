@@ -70,7 +70,7 @@ public class Flight {
             System.out.println("Flight not found!\n");
             return;
         }
-        System.out.println("==============FLIGHT INFORMATION==============");
+        System.out.println("\n==============FLIGHT INFORMATION==============");
         System.out.printf("%26s %s%n", "-Flight ID: ", getFlightID());
         System.out.printf("%26s %s%n", "-Distance (in miles): ", getDistance());
         System.out.printf("%26s %s%n", "-Origin: ", getOrigin());
