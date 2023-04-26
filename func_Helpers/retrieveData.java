@@ -347,7 +347,7 @@ public class retrieveData {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
 
-        String sql = "insert into ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "insert into ticket values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, flightID);
         stmt.setInt(2, distance);
