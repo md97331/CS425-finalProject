@@ -300,10 +300,12 @@ public class retrieveData {
 
     public static void insertIntoPassengers(int psgID, String firstName, String lastName,
      String password, String gender, String DOB, String passport,
-      int age, String creditCardInfo, String cellphone) throws SQLException {
-        openConnection();
+      int age, String creditCardInfo, String cellphone) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+
         String sql = "insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, psgID);
         stmt.setString(2, firstName);
         stmt.setString(3, lastName);
@@ -315,14 +317,18 @@ public class retrieveData {
         stmt.setString(9, creditCardInfo);
         stmt.setString(10, cellphone);
         stmt.executeQuery();
-        closeConnection();
+        
+        stmt.close();
+        con.close();
         }
 
     public static void insertIntoTicket(int ticketNumber, String classType, int PsgID,
-    String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException {
-        openConnection();
+    String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+
         String sql = "insert into ticket values (?, ?, ?, ?, ?, ?)";
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, ticketNumber);
         stmt.setString(2, classType);
         stmt.setInt(3, PsgID);
@@ -330,16 +336,19 @@ public class retrieveData {
         stmt.setDouble(5, standardPrice);
         stmt.setBoolean(6, cancelled);
         stmt.executeQuery();
-        closeConnection();
+        stmt.close();
+        con.close();
     }
 
     public static void insertIntoFlight(int flightID, int distance, String origin,
     String destination, double hours, boolean refundable, boolean oneWay, String arrivalTime,
     String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
-    int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) throws SQLException {
-        openConnection();
+    int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+
         String sql = "insert into ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?);";
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = con.prepareStatement(sql);
         stmt.setInt(1, flightID);
         stmt.setInt(2, distance);
         stmt.setString(3, origin);
@@ -357,7 +366,8 @@ public class retrieveData {
         stmt.setInt(1, psgLimitBUSS);
         stmt.setInt(1, psgLimitFIRST);
         stmt.executeQuery();
-        closeConnection();
+        stmt.close();
+        con.close();
 
         // Implement a function that displays all the data PER TABLE
 
