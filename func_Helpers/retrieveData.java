@@ -73,13 +73,14 @@ public class retrieveData {
         return returnedPassenger;
     }
 
-    public static Passenger getPassengerDataByPassport(int passportNum) throws SQLException {
-        openConnection();
-        String sql = "SELECT * FROM Passenger WHERE passport = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, passportNum);
+    public static Passenger getPassengerDataByPassport(int passportNum) throws SQLException, ClassNotFoundException {
 
-        ResultSet rs = stmt.executeQuery();
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("SELECT * FROM Passenger WHERE passport = ?");
+        pstmt.setInt(1, passportNum);
+
+        ResultSet rs = pstmt.executeQuery();
         String firstName = rs.getString("firstName");
         String lastName = rs.getString("lastName");
         String password = rs.getString("pwd");
@@ -93,17 +94,18 @@ public class retrieveData {
         Passenger returnedPassenger = new Passenger(passportNum,firstName,lastName,password,gender,DOB, passport, age, creditCardInfo,cellphone);
 
         rs.close();
-        closeConnection();
+        pstmt.close();
+        con.close();
         return returnedPassenger;
     }
 
-    public static Flight getFlightData(int currFlightID) throws SQLException {
-        openConnection();
-        String sql = "SELECT * FROM flight WHERE flightID = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, currFlightID);
+    public static Flight getFlightData(int currFlightID) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("SELECT * FROM flight WHERE flightID = ?");
+        pstmt.setInt(1, currFlightID);
 
-        ResultSet rs = stmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         int distance = rs.getInt("distance");
         String origin = rs.getString("origin");
         String destination = rs.getString("destination");
@@ -123,18 +125,18 @@ public class retrieveData {
         Flight returnedFlight = new Flight(currFlightID,distance,origin,destination,hours,refundable, oneWay, arrivalTime, departureTime,flexibleDate,milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
 
         rs.close();
-        stmt.close();
-        closeConnection();
+        pstmt.close();
+        con.close();
         return returnedFlight;
     }
 
-    public static TicketPayment getTicketPaymentData(int currTicketNum) throws SQLException {
-        openConnection();
-        String sql = "select * from payment natural join ticket where ticketNumber = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, currTicketNum);
+    public static TicketPayment getTicketPaymentData(int currTicketNum) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("select * from payment natural join ticket where ticketNumber = ?");
+        pstmt.setInt(1, currTicketNum);
 
-        ResultSet rs = stmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         String classType = rs.getString("classType");
         int PsgID = rs.getInt("PsgID");
         String dateOfFlight = rs.getString("dateOfFlight");
@@ -148,17 +150,18 @@ public class retrieveData {
         TicketPayment returnedTicketPayment = new TicketPayment(currTicketNum,classType,PsgID,dateOfFlight,standardPrice,cancelled, confirmationID, paymentInfo, eCredits,deltaGIftCard);
 
         rs.close();
-        closeConnection();
+        pstmt.close();
+        con.close();
         return returnedTicketPayment;
     }
 
-    public static FlightConnection getFlightConnection(int currFlightID) throws SQLException {
-        openConnection();
-        String sql = "select * from connection join flight on (connection.flightID = flight.flightID) where flight.flightID = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, currFlightID);
+    public static FlightConnection getFlightConnection(int currFlightID) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("select * from connection join flight on (connection.flightID = flight.flightID) where flight.flightID = ?");
+        pstmt.setInt(1, currFlightID);
 
-        ResultSet rs = stmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         int distance = rs.getInt("distance");
         String origin = rs.getString("origin");
         String destination = rs.getString("destination");
@@ -186,18 +189,19 @@ public class retrieveData {
         connectionID, cArrivalTime, cDepartureTime, airportConnection);
 
         rs.close();
-        closeConnection();
+        pstmt.close();
+        con.close();
         return returnedFlightConnection;
     }
 
-    public static Flight getFlightData(String dest, String ori) throws SQLException {
-        openConnection();
-        String sql = "SELECT * FROM flight WHERE destination = ? AND origin = ? ORDER BY distance ASC";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, dest);
-        stmt.setString(2, ori);
+    public static Flight getFlightData(String dest, String ori) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("SELECT * FROM flight WHERE destination = ? AND origin = ? ORDER BY distance ASC");
+        pstmt.setString(1, dest);
+        pstmt.setString(2, ori);
 
-        ResultSet rs = stmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         int flightID = rs.getInt("flightID");
         int distance = rs.getInt("distance");
         String origin = rs.getString("origin");
@@ -220,18 +224,19 @@ public class retrieveData {
         milesDiscount,psgLimitECON,psgLimitCOMF,psgLimitPREM, psgLimitBUSS,psgLimitFIRST);
 
         rs.close();
-        closeConnection();
+        pstmt.close();
+        con.close();
         return returnedFlight;
     }
 
-    public static PassengerTicket searchTicketByName(String first, String last) throws SQLException {
-        openConnection();
-        String sql = "SELECT * FROM ticket JOIN passenger ON (ticket.PsgId = passenger.PsgID) where firstName = ? and lastName = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, first);
-        stmt.setString(2, last);
+    public static PassengerTicket searchTicketByName(String first, String last) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("SELECT * FROM ticket JOIN passenger ON (ticket.PsgId = passenger.PsgID) where firstName = ? and lastName = ?");
+        pstmt.setString(1, first);
+        pstmt.setString(2, last);
 
-        ResultSet rs = stmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         int PsgID = rs.getInt("PsgID");
         String firstName = rs.getString("firstName");
         String lastName = rs.getString("lastName");
@@ -253,115 +258,130 @@ public class retrieveData {
         standardPrice, cancelled);
 
         rs.close();
-        closeConnection();
+        pstmt.close();
+        con.close();
         return returnedPassengerTicket;
     }
 
-    public static void dropTable(String table) throws SQLException {
-        openConnection();
-        String sql = "Drop Table ?;";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, table);
-        stmt.executeQuery();
-        closeConnection();
+    public static void dropTable(String table) throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("Drop Table ?;");
+        pstmt.setString(1, table);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
     }
 
-    public static void dropRowInTicket(int ticketNumber) throws SQLException {
-        openConnection();
-        String sql = "DELETE FROM ticket WHERE ticketNumber=?;";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, ticketNumber);
-        stmt.executeQuery();
-        closeConnection();
+    public static void dropRowInTicket(int ticketNumber) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM ticket WHERE ticketNumber=?;");
+        pstmt.setInt(1, ticketNumber);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
     }    
 
-    public static void dropRowInPassenger(int PsgID) throws SQLException {
-        openConnection();
-        String sql = "DELETE FROM passenger WHERE PsgID=?;";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, PsgID);
-        stmt.executeQuery();
-        closeConnection();
+    public static void dropRowInPassenger(int PsgID) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM passenger WHERE PsgID=?;");
+        pstmt.setInt(1, PsgID);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
     }
 
-    public static void dropRowInFlight(int flightID) throws SQLException {
-        openConnection();
-        String sql = "DELETE FROM flight WHERE flightID=?;";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, flightID);
-        stmt.executeQuery();
-        closeConnection();
+    public static void dropRowInFlight(int flightID) throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM flight WHERE flightID=?;");
+        pstmt.setInt(1, flightID);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
     }
 
-    public static void dropRowInConnection(int ConnectionID) throws SQLException {
-        openConnection();
-        String sql = "DELETE FROM connection WHERE ConnectionID=?;";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, ConnectionID);
-        stmt.executeQuery();
-        closeConnection();
+    public static void dropRowInConnection(int ConnectionID) throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM connection WHERE ConnectionID=?;");
+        pstmt.setInt(1, ConnectionID);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
     }
 
     public static void insertIntoPassengers(int psgID, String firstName, String lastName,
      String password, String gender, String DOB, String passport,
-      int age, String creditCardInfo, String cellphone) throws SQLException {
-        openConnection();
-        String sql = "insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, psgID);
-        stmt.setString(2, firstName);
-        stmt.setString(3, lastName);
-        stmt.setString(4, password);
-        stmt.setString(5, gender);
-        stmt.setString(6, DOB);
-        stmt.setString(7, passport);
-        stmt.setInt(8, age);
-        stmt.setString(9, creditCardInfo);
-        stmt.setString(10, cellphone);
-        stmt.executeQuery();
-        closeConnection();
+      int age, String creditCardInfo, String cellphone) throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("insert into passanger values (?, ?, ?, ?, ?, ?, ?,?,?,?)");
+        pstmt.setInt(1, psgID);
+        pstmt.setString(2, firstName);
+        pstmt.setString(3, lastName);
+        pstmt.setString(4, password);
+        pstmt.setString(5, gender);
+        pstmt.setString(6, DOB);
+        pstmt.setString(7, passport);
+        pstmt.setInt(8, age);
+        pstmt.setString(9, creditCardInfo);
+        pstmt.setString(10, cellphone);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
         }
 
     public static void insertIntoTicket(int ticketNumber, String classType, int PsgID,
-    String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException {
-        openConnection();
-        String sql = "insert into ticket values (?, ?, ?, ?, ?, ?)";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, ticketNumber);
-        stmt.setString(2, classType);
-        stmt.setInt(3, PsgID);
-        stmt.setString(4, dateOfFlight);
-        stmt.setDouble(5, standardPrice);
-        stmt.setBoolean(6, cancelled);
-        stmt.executeQuery();
-        closeConnection();
+    String dateOfFlight, double standardPrice, boolean cancelled) throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("insert into ticket values (?, ?, ?, ?, ?, ?)");
+        pstmt.setInt(1, ticketNumber);
+        pstmt.setString(2, classType);
+        pstmt.setInt(3, PsgID);
+        pstmt.setString(4, dateOfFlight);
+        pstmt.setDouble(5, standardPrice);
+        pstmt.setBoolean(6, cancelled);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
     }
 
     public static void insertIntoFlight(int flightID, int distance, String origin,
     String destination, double hours, boolean refundable, boolean oneWay, String arrivalTime,
     String departureTime, boolean flexibleDate, int milesDiscount, int psgLimitECON,
-    int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) throws SQLException {
-        openConnection();
-        String sql = "insert into ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?);";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, flightID);
-        stmt.setInt(2, distance);
-        stmt.setString(3, origin);
-        stmt.setString(4, destination);
-        stmt.setDouble(5, hours);
-        stmt.setBoolean(6, refundable);
-        stmt.setBoolean(7, oneWay);
-        stmt.setString(8, arrivalTime);
-        stmt.setString(9, departureTime);
-        stmt.setBoolean(8, flexibleDate);
-        stmt.setInt(1, milesDiscount);
-        stmt.setInt(1, psgLimitECON);
-        stmt.setInt(1, psgLimitCOMF);
-        stmt.setInt(1, psgLimitPREM);
-        stmt.setInt(1, psgLimitBUSS);
-        stmt.setInt(1, psgLimitFIRST);
-        stmt.executeQuery();
-        closeConnection();
+    int psgLimitCOMF, int psgLimitPREM, int psgLimitBUSS, int psgLimitFIRST) throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("insert into ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?)");
+        pstmt.setInt(1, flightID);
+        pstmt.setInt(2, distance);
+        pstmt.setString(3, origin);
+        pstmt.setString(4, destination);
+        pstmt.setDouble(5, hours);
+        pstmt.setBoolean(6, refundable);
+        pstmt.setBoolean(7, oneWay);
+        pstmt.setString(8, arrivalTime);
+        pstmt.setString(9, departureTime);
+        pstmt.setBoolean(8, flexibleDate);
+        pstmt.setInt(1, milesDiscount);
+        pstmt.setInt(1, psgLimitECON);
+        pstmt.setInt(1, psgLimitCOMF);
+        pstmt.setInt(1, psgLimitPREM);
+        pstmt.setInt(1, psgLimitBUSS);
+        pstmt.setInt(1, psgLimitFIRST);
+        pstmt.executeQuery();
+        pstmt.close();
+        con.close();
 
         // Implement a function that displays all the data PER TABLE
 
