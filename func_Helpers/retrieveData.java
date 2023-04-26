@@ -367,7 +367,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("insert into ticket values (?, ?, '?', '?', ?, ?, ?, '?', '?', ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement pstmt=con.prepareStatement("insert into flight values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         pstmt.setInt(1, flightID);
         pstmt.setInt(2, distance);
         pstmt.setString(3, origin);
@@ -377,13 +377,13 @@ public class retrieveData {
         pstmt.setBoolean(7, oneWay);
         pstmt.setString(8, arrivalTime);
         pstmt.setString(9, departureTime);
-        pstmt.setBoolean(8, flexibleDate);
-        pstmt.setInt(1, milesDiscount);
-        pstmt.setInt(1, psgLimitECON);
-        pstmt.setInt(1, psgLimitCOMF);
-        pstmt.setInt(1, psgLimitPREM);
-        pstmt.setInt(1, psgLimitBUSS);
-        pstmt.setInt(1, psgLimitFIRST);
+        pstmt.setBoolean(10, flexibleDate);
+        pstmt.setInt(11, milesDiscount);
+        pstmt.setInt(12, psgLimitECON);
+        pstmt.setInt(13, psgLimitCOMF);
+        pstmt.setInt(14, psgLimitPREM);
+        pstmt.setInt(15, psgLimitBUSS);
+        pstmt.setInt(16, psgLimitFIRST);
         pstmt.executeQuery();
         pstmt.close();
         con.close();
