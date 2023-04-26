@@ -275,7 +275,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("Drop Table ?;");
+        PreparedStatement pstmt=con.prepareStatement("Drop Table ?");
         pstmt.setString(1, table);
         pstmt.executeQuery();
         pstmt.close();
@@ -285,7 +285,7 @@ public class retrieveData {
     public static void dropRowInTicket(int ticketNumber) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM ticket WHERE ticketNumber=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM ticket WHERE ticketNumber=?");
         pstmt.setInt(1, ticketNumber);
         pstmt.executeQuery();
         pstmt.close();
@@ -295,7 +295,7 @@ public class retrieveData {
     public static void dropRowInPassenger(int PsgID) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM passenger WHERE PsgID=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM passenger WHERE PsgID=?");
         pstmt.setInt(1, PsgID);
         pstmt.executeQuery();
         pstmt.close();
@@ -306,7 +306,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM flight WHERE flightID=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM flight WHERE flightID=?");
         pstmt.setInt(1, flightID);
         pstmt.executeQuery();
         pstmt.close();
@@ -317,7 +317,7 @@ public class retrieveData {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-        PreparedStatement pstmt=con.prepareStatement("DELETE FROM connection WHERE ConnectionID=?;");
+        PreparedStatement pstmt=con.prepareStatement("DELETE FROM connection WHERE ConnectionID=?");
         pstmt.setInt(1, ConnectionID);
         pstmt.executeQuery();
         pstmt.close();

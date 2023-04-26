@@ -19,7 +19,7 @@ public class Menu {
         do {
             System.out.print("-Username:");
             username = sc.nextLine();
-            System.out.print("-Lastname: ");
+            System.out.print("-Password: ");
             password = sc.nextLine();
     
             if (username.contains("\"") || username.contains("\'")) {
