@@ -18,9 +18,9 @@ public class Main {
         int selectedOptionFromFirstMenu = Menu.displayMenu(currUser);
         if(userStatus == 1){
             int selectedOptionFromSubMenu = Menu.displaySubMenu(selectedOptionFromFirstMenu);
-            Menu.runQueryBySelectedOptions(selectedOptionFromFirstMenu, selectedOptionFromSubMenu, userStatus);
+            Menu.runQueryBySelectedOptions(userStatus, selectedOptionFromFirstMenu, selectedOptionFromSubMenu);
         }else if(userStatus == 2){
-            Menu.runQueryBySelectedOptions(selectedOptionFromFirstMenu, 0, userStatus);
+            Menu.runQueryBySelectedOptions(userStatus, selectedOptionFromFirstMenu, 0);
         }
 
     }
