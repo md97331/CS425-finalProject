@@ -406,21 +406,17 @@ public class retrieveData {
         System.out.print("lastName: "); String lastName = sc.nextLine();
         System.out.print("pwd: "); String pwd = sc.nextLine();
         System.out.print("gender: "); String gender = sc.nextLine();
-        System.out.print("DOB: "); sc.nextLine();
-        System.out.print("passport: "); sc.nextLine();
-        System.out.print("age: "); sc.nextLine();
-        System.out.print("creditCardInfo: "); sc.nextLine();
-        System.out.print("cellPhone: "); sc.nextLine();
+        System.out.print("DOB: "); String DOB = sc.nextLine();
+        System.out.print("passport: "); String passport = sc.nextLine();
+        System.out.print("age: "); int age = sc.nextInt();
+        System.out.print("creditCardInfo: "); String creditCardInfo = sc.nextLine();
+        System.out.print("cellPhone: "); String cellPhone = sc.nextLine();
 
-
-
-
-
-//        Class.forName("com.mysql.cj.jdbc.Driver");
-//        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
-//        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET ");
-//        pstmt.setInt(1, currPsgID);
-//        ResultSet rs = pstmt.executeQuery();
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/airline_database?allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=utf-8&useSSL=false","root",SQLPASSWORD);
+        PreparedStatement pstmt=con.prepareStatement("UPDATE passenger SET PsgID = ?, flightID = ?, firstName = ?, lastName = ?, pwd = ?, gender = ?, DOB = ?, ");
+        pstmt.setInt(1, currPsgID);
+        ResultSet rs = pstmt.executeQuery();
 
 
 
