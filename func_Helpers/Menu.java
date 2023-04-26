@@ -10,7 +10,7 @@ import java.util.Map;
 import static java.lang.System.exit;
 
 public class Menu {
-    public static String SQLPASSWORD = "Jerry89232382";
+    public static String SQLPASSWORD = "First5210";
     public static User initMenu() {
         System.out.println("================== SKY LINK AIRLINES ==================");
         Scanner sc = new Scanner(System.in);

@@ -9,18 +9,20 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         User currUser;
+        int userStatus = 0;
         do {
             currUser = Menu.initMenu();
-        } while (currUser.getAdmin()==-1 || currUser.getAdmin()==9);
-        int selectedOptionFromFirstMenu = Menu.displayMenu(currUser);
-        if(currUser.getAdmin() == 1){
-            int selectedOptionFromSubMenu = Menu.displaySubMenu(selectedOptionFromFirstMenu);
+            userStatus = currUser.getAdmin();
+        } while (userStatus==-1 || userStatus==9);
 
-            Menu.runQueryBySelectedOptions(currUser.getAdmin(),selectedOptionFromFirstMenu, selectedOptionFromSubMenu);
-        }else if(currUser.getAdmin() == 2){
-            //Menu.displaySubMenu(MenuOption);
+        int selectedOptionFromFirstMenu = Menu.displayMenu(currUser);
+        if(userStatus == 1){
+            int selectedOptionFromSubMenu = Menu.displaySubMenu(selectedOptionFromFirstMenu);
+            Menu.runQueryBySelectedOptions(selectedOptionFromFirstMenu, selectedOptionFromSubMenu, userStatus);
+        }else if(userStatus == 2){
+            Menu.runQueryBySelectedOptions(selectedOptionFromFirstMenu, 0, userStatus);
         }
-        
+
     }
 
 }

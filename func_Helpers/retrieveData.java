@@ -10,7 +10,7 @@ public class retrieveData {
     private static Connection connection;
     static String url = "jdbc:mysql://localhost:3306/airline_database";
     static String username = "root";
-    static String password = "Jerry89232382";
+    static String password = "First5210";
 
 
     public static void closeConnection() {
